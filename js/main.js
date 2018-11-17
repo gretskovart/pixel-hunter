@@ -1,5 +1,3 @@
-'use strict';
-
 (function () {
   let currentScreen = 0;
   let arrows;

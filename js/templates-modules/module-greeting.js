@@ -1,6 +1,7 @@
 import getElementFromTemplate from './../render-element.js';
 
-const moduleGreeting = getElementFromTemplate(`
+const moduleGreeting = () => {
+  const moduleGreetingTemplate = getElementFromTemplate(`
   <section class="greeting central--blur">
     <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
     <div class="greeting__asterisk asterisk"><span class="visually-hidden">Я просто красивая звёздочка</span>*</div>
@@ -22,5 +23,8 @@ const moduleGreeting = getElementFromTemplate(`
     </button>
   </section>
 `);
+
+  return moduleGreetingTemplate;
+};
 
 export default moduleGreeting;

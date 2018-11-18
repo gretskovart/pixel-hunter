@@ -1,4 +1,5 @@
 import getElementFromTemplate from './../render-element.js';
+import moduleRules from './module-rules.js';
 
 const moduleGreeting = () => {
   const moduleGreetingTemplate = getElementFromTemplate(`
@@ -23,6 +24,8 @@ const moduleGreeting = () => {
     </button>
   </section>
 `);
+
+  (document.querySelector(`.greeting__continue`)).addEventListener(`click`, moduleRules);
 
   return moduleGreetingTemplate;
 };

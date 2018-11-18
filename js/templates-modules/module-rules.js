@@ -1,6 +1,9 @@
 import getElementFromTemplate from './../render-element.js';
+import moduleGame1 from './module-game-1.js';
+import moduleGreeting from './module-greeting.js';
 
-const moduleRules = getElementFromTemplate(`
+const moduleRules = () => {
+  const moduleRulesTemplate = getElementFromTemplate(`
   <header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>
@@ -29,5 +32,25 @@ const moduleRules = getElementFromTemplate(`
     </form>
   </section>
 `);
+
+  let form = document.querySelector(`.rules__form`);
+  let nameInput = form.querySelector(`.rules__input`);
+  let formBtn = form.querySelector(`.rules__button`);
+
+  const changeNameInputHandlers = () => {
+    if (nameInput.value.length > 1) {
+      formBtn.removeAttribute(`disabled`);
+    }
+  };
+
+  document.addEventListener(`keyup`, changeNameInputHandlers);
+  form.addEventListener(`submit`, moduleGame1);
+
+  const backBtn = document.querySelector(`.back`);
+
+  backBtn.addEventListener(`click`, moduleGreeting);
+
+  return moduleRulesTemplate;
+};
 
 export default moduleRules;

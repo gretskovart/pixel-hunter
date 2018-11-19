@@ -2,8 +2,7 @@ import getElementFromTemplate from './../render-element.js';
 import moduleGame1 from './module-game-1.js';
 import moduleBackBtn from './module-back-btn.js';
 
-const moduleRulesTemplate = () => {
-  getElementFromTemplate(`
+const rulesTemplate = `
   <header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>
@@ -31,10 +30,7 @@ const moduleRulesTemplate = () => {
       <button class="rules__button  continue" type="submit" disabled>Go!</button>
     </form>
   </section>
-  `);
-
-  return moduleRulesTemplate;
-};
+`;
 
 const changeNameInputHandlers = () => {
   let nameInput = document.querySelector(`.rules__input`);
@@ -54,7 +50,7 @@ const submitFormRules = () => {
 };
 
 const moduleRules = () => {
-  moduleRulesTemplate();
+  getElementFromTemplate(rulesTemplate);
   changeNameInputHandlers();
   moduleBackBtn();
   submitFormRules();

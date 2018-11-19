@@ -2,8 +2,7 @@ import getElementFromTemplate from './../render-element.js';
 import moduleStats from './module-stats.js';
 import moduleBackBtn from './module-back-btn.js';
 
-const moduleGame3Template = () => {
-  getElementFromTemplate(`
+const game3Template = `
   <header class="header">
   <button class="back">
     <span class="visually-hidden">Вернуться к началу</span>
@@ -47,10 +46,7 @@ const moduleGame3Template = () => {
     <li class="stats__result stats__result--unknown"></li>
   </ul>
   </section>
-  `);
-
-  return moduleGame3Template;
-};
+`;
 
 const changeFormGame1 = () => {
   let form = document.querySelector(`.game__content`);
@@ -59,7 +55,7 @@ const changeFormGame1 = () => {
 };
 
 const moduleGame3 = () => {
-  moduleGame3Template();
+  getElementFromTemplate(game3Template);
   changeFormGame1();
   moduleBackBtn();
 };

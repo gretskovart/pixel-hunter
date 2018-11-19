@@ -1,8 +1,7 @@
 import getElementFromTemplate from './../render-element.js';
 import moduleBackBtn from './module-back-btn.js';
 
-const moduleStatsTemplate = () => {
-  getElementFromTemplate(`
+const statsTemplate = `
   <header class="header">
   <button class="back">
     <span class="visually-hidden">Вернуться к началу</span>
@@ -114,13 +113,10 @@ const moduleStatsTemplate = () => {
     </tr>
   </table>
   </section>
-  `);
-
-  return moduleStatsTemplate;
-};
+`;
 
 const moduleStats = () => {
-  moduleStatsTemplate();
+  getElementFromTemplate(statsTemplate);
   moduleBackBtn();
 };
 

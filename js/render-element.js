@@ -6,8 +6,17 @@ export default (html) => {
   mainBlock.innerHTML = ``;
   template.innerHTML = html;
 
-  const content = template.content.cloneNode(true);
+  const content = wrap(template);
 
   mainBlock.appendChild(content);
-  return mainBlock.cloneNode(true);
+  return mainBlock;
 };
+
+const wrap = (it) => {
+  const shadow = document.createElement(`div`);
+  const content = it.content.cloneNode(true);
+  shadow.appendChild(content);
+
+  return shadow.cloneNode(true);
+};
+

@@ -6,5 +6,8 @@ export default (html) => {
   mainBlock.innerHTML = ``;
   template.innerHTML = html;
 
-  return mainBlock.appendChild(template.content);
+  const content = template.content.cloneNode(true);
+
+  mainBlock.appendChild(content);
+  return mainBlock.cloneNode(true);
 };

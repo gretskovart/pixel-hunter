@@ -1,9 +1,9 @@
 import getElementFromTemplate from './../render-element.js';
 import moduleGame1 from './module-game-1.js';
-import moduleGreeting from './module-greeting.js';
+import moduleBackBtn from './module-back-btn.js';
 
-const moduleRules = () => {
-  const moduleRulesTemplate = getElementFromTemplate(`
+const moduleRulesTemplate = () => {
+  getElementFromTemplate(`
   <header class="header">
     <button class="back">
       <span class="visually-hidden">Вернуться к началу</span>
@@ -31,26 +31,34 @@ const moduleRules = () => {
       <button class="rules__button  continue" type="submit" disabled>Go!</button>
     </form>
   </section>
-`);
-
-  let form = document.querySelector(`.rules__form`);
-  let nameInput = form.querySelector(`.rules__input`);
-  let formBtn = form.querySelector(`.rules__button`);
-
-  const changeNameInputHandlers = () => {
-    if (nameInput.value.length > 1) {
-      formBtn.removeAttribute(`disabled`);
-    }
-  };
-
-  document.addEventListener(`keyup`, changeNameInputHandlers);
-  form.addEventListener(`submit`, moduleGame1);
-
-  const backBtn = document.querySelector(`.back`);
-
-  backBtn.addEventListener(`click`, moduleGreeting);
+  `);
 
   return moduleRulesTemplate;
+};
+
+const changeNameInputHandlers = () => {
+  let nameInput = document.querySelector(`.rules__input`);
+  let formBtn = document.querySelector(`.rules__button`);
+
+  if (nameInput.value.length > 1) {
+    formBtn.removeAttribute(`disabled`);
+  }
+};
+
+const typeInputFormRules = () => document.addEventListener(`keyup`, changeNameInputHandlers);
+
+const submitFormRules = () => {
+  let form = document.querySelector(`.rules__form`);
+
+  form.addEventListener(`submit`, moduleGame1);
+};
+
+const moduleRules = () => {
+  moduleRulesTemplate();
+  changeNameInputHandlers();
+  moduleBackBtn();
+  submitFormRules();
+  typeInputFormRules();
 };
 
 export default moduleRules;

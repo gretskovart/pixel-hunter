@@ -6,7 +6,7 @@
 // - количество медленных ответов
 // - количество обычных ответов
 
-const answersArrConstruct = (len, right, quickly, slow, normal) => {
+const answersArrConstruct = (len, answered, right, quickly, slow, normal) => {
   if (right > len || quickly + slow + normal > len) {
     throw new Error(`Не верно указаны параметры. Общее количество ответов - ` + len);
   }
@@ -16,7 +16,7 @@ const answersArrConstruct = (len, right, quickly, slow, normal) => {
   answersArr = arrConstruct(len, answersArr);
 
   if (right > 0) {
-    answersRightConstruct(answersArr, right);
+    answersRightConstruct(answersArr, answered, right);
   }
 
   answersTimeConstruct(quickly, slow, normal, answersArr);
@@ -24,9 +24,15 @@ const answersArrConstruct = (len, right, quickly, slow, normal) => {
   return answersArr;
 };
 
-const answersRightConstruct = (arr, right) => {
+const answersRightConstruct = (arr, answered, right) => {
   for (let index = 0; index < right; index++) {
     arr[index].right = true;
+  }
+
+  if (answered !== right) {
+    for (let index = right; index < answered - right; index++) {
+      arr[index].right = false;
+    }
   }
 };
 
@@ -36,21 +42,21 @@ const answersTimeConstruct = (quickly, slow, normal, arr) => {
   const NORMAL_TIME = 11;
 
   const type = {
-    q: quickly,
-    s: slow,
-    n: normal
+    quickly,
+    slow,
+    normal
   };
 
-  if (type.q > 0) {
-    addTimes(QUICKLY_TIME, arr, type.q);
+  if (type.quickly > 0) {
+    addTimes(QUICKLY_TIME, arr, type.quickly);
   }
 
-  if (type.s > 0) {
-    addTimes(SLOW_TIME, arr, type.s);
+  if (type.slow > 0) {
+    addTimes(SLOW_TIME, arr, type.slow);
   }
 
-  if (type.n > 0) {
-    addTimes(NORMAL_TIME, arr, type.n);
+  if (type.normal > 0) {
+    addTimes(NORMAL_TIME, arr, type.normal);
   }
 };
 
@@ -67,7 +73,7 @@ const addTimes = (timeNumber, arr, type) => {
 const arrConstruct = (len, arr) => {
   for (let index = 0; index < len; index++) {
     arr.push({
-      right: false,
+      right: null,
       time: null
     });
   }

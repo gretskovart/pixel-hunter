@@ -1,6 +1,6 @@
 import {assert} from 'chai';
-import answersArrConstruct from './game-data-emulate.js';
-import countScore from './game-data.js';
+import answersArrConstruct from './game-score-emulate.js';
+import countScore from './game-score.js';
 
 /*
 answersArrConstruct(

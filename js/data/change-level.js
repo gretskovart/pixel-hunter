@@ -3,7 +3,7 @@ export default (level) => {
     throw new Error(`Уровень не является числом`);
   } else if (level < 1) {
     throw new Error(`Уровень должен быть не меньше 1`);
-  } else if (level === 10) {
+  } else if (level >= 10) {
     throw new Error(`Уровень должен быть не больше 10`);
   }
 

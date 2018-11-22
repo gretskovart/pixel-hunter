@@ -1,10 +1,13 @@
+const countLives = (lives) => lives * 50;
 
-const countAnswers = (answersArr) => {
+export default (answersArr, lives) => {
   answersArr.forEach((answer) => {
     const count = {total: 0};
 
     if (answer.right === true) {
       count.total += 100;
+    } else {
+      return -1;
     }
 
     if (answer.time < 10) {
@@ -13,10 +16,6 @@ const countAnswers = (answersArr) => {
       count.total -= 50;
     }
 
-    return count.total;
+    return count.total + countLives(lives);
   });
 };
-
-const countLives = (lives) => lives * 50;
-
-export default (answersArr, lives) => countAnswers(answersArr) + countLives(lives);

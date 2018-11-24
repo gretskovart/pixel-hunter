@@ -1,6 +1,6 @@
 import {assert} from 'chai';
-import reduceLife from './reduce-life.js';
-import gameInfo from './game-info.js';
+import reduceLife from '../reduce-life.js';
+import gameInfo from '../game-info.js';
 
 describe(`Потеря количества жизней`, () => {
   it(`Количество жизней - это число`, () => {

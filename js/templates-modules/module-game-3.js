@@ -1,8 +1,11 @@
 import getElementFromTemplate from './../render-element.js';
 import moduleStats from './module-stats.js';
 import moduleBackBtn from './module-back-btn.js';
+import gameHeader from './game-header.js';
+import gameStats from './game-stats.js';
 
 const game3Template = `
+  ${gameHeader}
   <section class="game">
     <p class="game__task">Найдите рисунок среди изображений</p>
     <form class="game__content  game__content--triple">
@@ -16,6 +19,7 @@ const game3Template = `
         <img src="http://placehold.it/304x455" alt="Option 3" width="304" height="455">
       </div>
     </form>
+    ${gameStats}
   </section>
 `;
 

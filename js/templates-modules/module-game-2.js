@@ -1,8 +1,11 @@
 import getElementFromTemplate from './../render-element.js';
 import moduleGame3 from './module-game-3.js';
 import moduleBackBtn from './module-back-btn.js';
+import gameHeader from './game-header.js';
+import gameStats from './game-stats.js';
 
 const game2Template = `
+  ${gameHeader}
   <section class="game">
     <p class="game__task">Угадай, фото или рисунок?</p>
     <form class="game__content  game__content--wide">
@@ -18,6 +21,7 @@ const game2Template = `
         </label>
       </div>
     </form>
+    ${gameStats}
   </section>
 `;
 

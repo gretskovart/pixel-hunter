@@ -1,4 +1,4 @@
-import moduleGreeting from './module-greeting.js';
+import moduleGreeting from './../module-greeting.js';
 
 const clickBackBtn = (nextModule) => {
   let backBtn = document.querySelector(`.back`);

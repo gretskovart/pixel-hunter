@@ -1,16 +1,18 @@
 import getElementFromTemplate from './../render-element.js';
 import moduleGame2 from './module-game-2.js';
-import moduleBackBtn from './module-back-btn.js';
-import gameHeader from './game-header.js';
-import gameStats from './game-stats.js';
+import moduleBackBtn from './components/module-back-btn.js';
+import gameHeader from './components/game-header.js';
+import gameStats from './components/game-stats.js';
+import gameQuestions from './../data/game-questions.js';
+import {firstImageGame1, secondImageGame1} from './components/game-images.js';
 
 const game1Template = `
   ${gameHeader}
   <section class="game">
-    <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
+    <p class="game__task">${gameQuestions.questions.game1}</p>
     <form class="game__content">
       <div class="game__option">
-        <img src="http://placehold.it/468x458" alt="Option 1" width="468" height="458">
+        ${firstImageGame1}
         <label class="game__answer game__answer--photo">
           <input class="visually-hidden" name="question1" type="radio" value="photo">
           <span>Фото</span>
@@ -21,7 +23,7 @@ const game1Template = `
         </label>
       </div>
       <div class="game__option">
-        <img src="http://placehold.it/468x458" alt="Option 2" width="468" height="458">
+        ${secondImageGame1}
         <label class="game__answer  game__answer--photo">
           <input class="visually-hidden" name="question2" type="radio" value="photo">
           <span>Фото</span>

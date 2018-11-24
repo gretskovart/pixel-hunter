@@ -1,5 +1,5 @@
 import getElementFromTemplate from './../render-element.js';
-import moduleBackBtn from './module-back-btn.js';
+import moduleBackBtn from './components/module-back-btn.js';
 
 const statsTemplate = `
   <header class="header">

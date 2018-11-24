@@ -1,22 +1,24 @@
 import getElementFromTemplate from './../render-element.js';
 import moduleStats from './module-stats.js';
-import moduleBackBtn from './module-back-btn.js';
-import gameHeader from './game-header.js';
-import gameStats from './game-stats.js';
+import moduleBackBtn from './components/module-back-btn.js';
+import gameHeader from './components/game-header.js';
+import gameStats from './components/game-stats.js';
+import gameQuestions from './../data/game-questions.js';
+import {firstImageGame3, secondImageGame3, thirdImageGame3} from './components/game-images.js';
 
 const game3Template = `
   ${gameHeader}
   <section class="game">
-    <p class="game__task">Найдите рисунок среди изображений</p>
+    <p class="game__task">${gameQuestions.questions.game3}</p>
     <form class="game__content  game__content--triple">
       <div class="game__option">
-        <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
+        ${firstImageGame3}
       </div>
       <div class="game__option  game__option--selected">
-        <img src="http://placehold.it/304x455" alt="Option 2" width="304" height="455">
+        ${secondImageGame3}
       </div>
       <div class="game__option">
-        <img src="http://placehold.it/304x455" alt="Option 3" width="304" height="455">
+        ${thirdImageGame3}
       </div>
     </form>
     ${gameStats}

@@ -7,7 +7,7 @@ describe(`Смена игровых уровней`, () => {
     const currentLevel = gameInfo.level;
     const nextLevel = changeLevel(currentLevel);
 
-    assert.equal(nextLevel, 1);
+    assert.equal(nextLevel, 2);
   });
 
   it(`Уровень не может быть меньше 1`, () => {

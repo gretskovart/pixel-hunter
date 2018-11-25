@@ -3,36 +3,15 @@ import moduleGame2 from './module-game-2.js';
 import moduleBackBtn from './components/module-back-btn.js';
 import gameHeader from './components/game-header.js';
 import gameStats from './components/game-stats.js';
-import gameQuestions from './../data/game-questions.js';
-import {firstImageGame1, secondImageGame1} from './components/game-images.js';
+import gameName from './../data/utils/get-game-name.js';
+import {game1} from './../data/utils/get-game-1.js';
 
 const game1Template = `
   ${gameHeader}
   <section class="game">
-    <p class="game__task">${gameQuestions.questions.game1}</p>
+    ${gameName(`game-1`)}
     <form class="game__content">
-      <div class="game__option">
-        ${firstImageGame1}
-        <label class="game__answer game__answer--photo">
-          <input class="visually-hidden" name="question1" type="radio" value="photo">
-          <span>Фото</span>
-        </label>
-        <label class="game__answer game__answer--paint">
-          <input class="visually-hidden" name="question1" type="radio" value="paint">
-          <span>Рисунок</span>
-        </label>
-      </div>
-      <div class="game__option">
-        ${secondImageGame1}
-        <label class="game__answer  game__answer--photo">
-          <input class="visually-hidden" name="question2" type="radio" value="photo">
-          <span>Фото</span>
-        </label>
-        <label class="game__answer  game__answer--paint">
-          <input class="visually-hidden" name="question2" type="radio" value="paint">
-          <span>Рисунок</span>
-        </label>
-      </div>
+      ${game1}
     </form>
     ${gameStats}
   </section>

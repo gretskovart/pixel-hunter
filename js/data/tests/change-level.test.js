@@ -1,6 +1,6 @@
 import {assert} from 'chai';
-import changeLevel from '../change-level.js';
-import gameInfo from '../game-info.js';
+import changeLevel from './../utils/change-level.js';
+import gameInfo from './../game-info.js';
 
 describe(`Смена игровых уровней`, () => {
   it(`Уровень это число`, () => {

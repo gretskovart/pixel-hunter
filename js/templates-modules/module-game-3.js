@@ -3,23 +3,16 @@ import moduleStats from './module-stats.js';
 import moduleBackBtn from './components/module-back-btn.js';
 import gameHeader from './components/game-header.js';
 import gameStats from './components/game-stats.js';
-import gameQuestions from './../data/game-questions.js';
-import {firstImageGame3, secondImageGame3, thirdImageGame3} from './components/game-images.js';
+import gameName from './../data/utils/get-game-name.js';
+import game3 from './../data/utils/get-game-3.js';
+import moduleGame1 from './module-game-1.js';
 
 const game3Template = `
   ${gameHeader}
   <section class="game">
-    <p class="game__task">${gameQuestions.questions.game3}</p>
+    ${gameName(`game-3`)}
     <form class="game__content  game__content--triple">
-      <div class="game__option">
-        ${firstImageGame3}
-      </div>
-      <div class="game__option  game__option--selected">
-        ${secondImageGame3}
-      </div>
-      <div class="game__option">
-        ${thirdImageGame3}
-      </div>
+      ${game3}
     </form>
     ${gameStats}
   </section>
@@ -28,7 +21,7 @@ const game3Template = `
 const changeFormGame1 = () => {
   let form = document.querySelector(`.game__content`);
 
-  form.addEventListener(`click`, moduleStats);
+  form.addEventListener(`click`, moduleGame1);
 };
 
 const moduleGame3 = () => {

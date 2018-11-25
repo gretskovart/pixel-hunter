@@ -1,4 +1,4 @@
-import changeLevel from './change-level';
+import changeLevel from './change-level.js';
 
 const TIME_LIMIT = 30;
 

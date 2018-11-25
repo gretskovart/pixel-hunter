@@ -66,8 +66,6 @@ const saveAnswers = (isCorrect, time) => {
   answer.isNormal = (time >= QUICK_RESPONSE_TIMELIMIT && time <= SLOW_RESPONSE_TIMELIMIT) ? true : null;
 
   info.answers.push(answer);
-  console.log(info.answers);
-  
 };
 
 export default makeGame;

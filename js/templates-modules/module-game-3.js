@@ -14,7 +14,9 @@ const game3Template = `
     <form class="game__content  game__content--triple">
       ${game3}
     </form>
-    ${gameStats}
+      <ul class="stats">
+        ${gameStats()}
+      </ul>
   </section>
 `;
 

@@ -19,14 +19,22 @@ const selectAnswersHandlers = () => {
 
   game.addEventListener(`change`, (evt) => {
     let target = evt.target;
-    let imgUrl = target.parentNode.parentNode.querySelector(`img`).src;
-    let value = target.value;
-    let existingType = getSelectedImgType(imgUrl);
-    let isCorrect = (existingType === value) ? true : false;
+    let isCorrect;
+
+    const value = target.value;
 
     if (target.tagName === `INPUT`) {
-      saveAnswers(isCorrect, 11);
+      let imgUrl = target.parentNode.parentNode.querySelector(`img`).src;
+      let existingType = getSelectedImgType(imgUrl);
+      isCorrect = (existingType === value) ? true : false;
+
+    } else if (target.tagName === `INPUT` && target.parentNode.parentNode.classList.contains(`game__content--triple`)) {
+      let imgUrl = target.querySelector(`img`).src;
+      let existingType = getSelectedImgType(imgUrl);
+      isCorrect = (existingType === `paint`) ? true : false;
     }
+
+    saveAnswers(isCorrect, 11);
   });
 };
 
@@ -58,7 +66,8 @@ const saveAnswers = (isCorrect, time) => {
   answer.isNormal = (time >= QUICK_RESPONSE_TIMELIMIT && time <= SLOW_RESPONSE_TIMELIMIT) ? true : null;
 
   info.answers.push(answer);
-  console.log(info);
+  console.log(info.answers);
+  
 };
 
 export default makeGame;

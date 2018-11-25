@@ -14,7 +14,9 @@ const game2Template = `
     <form class="game__content  game__content--wide">
       ${game2}
     </form>
-    ${gameStats}
+      <ul class="stats">
+        ${gameStats()}
+      </ul>
   </section>
 `;
 

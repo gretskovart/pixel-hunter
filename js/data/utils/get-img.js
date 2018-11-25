@@ -1,15 +1,19 @@
 import images from './../game-images.js';
 
-const getRandom = (arr, len) => Math.floor(Math.random() * (len));
+const getRandom = (len) => Math.floor(Math.random() * (len));
 
-let getImg = () => {
-  let type = [...images.keys()][getRandom(images, images.size)];
+const getImgList = () => {
+  let type = [...images.keys()][getRandom(images.size)];
   let typeList = images.get(type);
-  let imgUrlList = Array.from(typeList.values());
 
-  let a = getRandom(imgUrlList, imgUrlList.length);
+  return Array.from(typeList.values());
+};
+
+const getImg = () => {
+  let imgUrlList = getImgList();
+  let a = getRandom(imgUrlList.length);
 
   return imgUrlList[a];
 };
 
-export default getImg;
+export {getImg};

@@ -1,3 +1,5 @@
+import info from './../game-info.js';
+
 export default (level) => {
   if (typeof level !== `number`) {
     throw new Error(`Уровень не является числом`);
@@ -10,7 +12,8 @@ export default (level) => {
 
   }
 
-  const currentLevel = level++;
+  let currentLevel = level + 1;
+  info.level = currentLevel;
 
   return currentLevel;
 };

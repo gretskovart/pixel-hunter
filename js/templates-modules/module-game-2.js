@@ -5,6 +5,7 @@ import gameHeader from './components/game-header.js';
 import gameStats from './components/game-stats.js';
 import gameName from './../data/utils/get-game-name.js';
 import game2 from './../data/utils/get-game-2.js';
+import game from './../data/utils/game.js';
 
 const game2Template = `
   ${gameHeader}
@@ -27,6 +28,7 @@ const moduleGame2 = () => {
   getElementFromTemplate(game2Template);
   changeFormGame1();
   moduleBackBtn();
+  game();
 };
 
 export default moduleGame2;

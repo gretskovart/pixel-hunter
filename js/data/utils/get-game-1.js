@@ -1,4 +1,4 @@
-import image from './get-img';
+import {getImg} from './get-img.js';
 
 const ANSWERS_COUNT_GAME_1 = 2;
 
@@ -6,7 +6,7 @@ const getGame1 = () => {
   const game = [];
 
   for (let index = 0; index < ANSWERS_COUNT_GAME_1; ++index) {
-    let imgUrl = image();
+    let imgUrl = getImg();
 
     game.push(`
       <div class="game__option">
@@ -28,5 +28,5 @@ const getGame1 = () => {
 
 const game1 = getGame1();
 
-export {game1};
+export default game1;
 

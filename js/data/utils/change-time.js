@@ -1,8 +1,6 @@
-import changeLevel from './change-level.js';
-
 const TIME_LIMIT = 30;
 
-export default (level, time) => {
+export default (time) => {
   if (typeof time !== `number`) {
     throw new Error(`Время должно быть числом`);
 
@@ -13,7 +11,6 @@ export default (level, time) => {
     throw new Error(`Время должно быть не больше переменной TIME_LIMIT`);
 
   } else if (time === TIME_LIMIT) {
-    changeLevel(level);
     time = 0;
 
   } else if (time >= 0 && time < TIME_LIMIT) {

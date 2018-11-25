@@ -4,7 +4,8 @@ import moduleBackBtn from './components/module-back-btn.js';
 import gameHeader from './components/game-header.js';
 import gameStats from './components/game-stats.js';
 import gameName from './../data/utils/get-game-name.js';
-import {game1} from './../data/utils/get-game-1.js';
+import game1 from './../data/utils/get-game-1.js';
+import game from './../data/utils/game.js';
 
 const game1Template = `
   ${gameHeader}
@@ -37,6 +38,7 @@ const moduleGame1 = () => {
   selectAnswersGame1Handlers();
   changeFormGame1();
   moduleBackBtn();
+  game();
 };
 
 export default moduleGame1;

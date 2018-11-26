@@ -4,24 +4,26 @@ const getStatsPanel = () => {
   let statsPanel = [];
 
   for (let index = 0; index < 10; index++) {
-    if (info.isCorrect === false) {
+    const answers = info.answers;
+
+    if (answers.length === 0 || answers[index] === undefined) {
+      statsPanel.push(`
+        <li class="stats__result stats__result--unknown"></li>`);
+    } else if (answers[index].isCorrect === false) {
       statsPanel.push(`
         <li class="stats__result stats__result--wrong"></li>`);
 
-    } else if (info.isQuick === true) {
+    } else if (answers[index].isQuick === true) {
       statsPanel.push(`
         <li class="stats__result stats__result--fast"></li>`);
 
-    } else if (info.isSlow === true) {
+    } else if (answers[index].isSlow === true) {
       statsPanel.push(`
         <li class="stats__result stats__result--slow"></li>`);
 
-    } else if (info.isNormal === true) {
+    } else if (answers[index].isNormal === true) {
       statsPanel.push(`
         <li class="stats__result stats__result--correct"></li>`);
-    } else {
-      statsPanel.push(`
-        <li class="stats__result stats__result--unknown"></li>`);
     }
   }
 

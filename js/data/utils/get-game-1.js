@@ -26,7 +26,5 @@ const getGame1 = () => {
   return game.join(``);
 };
 
-const game1 = getGame1();
-
-export default game1;
+export default getGame1;
 

@@ -7,18 +7,20 @@ import gameName from './../data/utils/get-game-name.js';
 import game2 from './../data/utils/get-game-2.js';
 import game from './../data/utils/game.js';
 
-const game2Template = `
-  ${gameHeader}
-  <section class="game">
-    ${gameName(`game-2`)}
-    <form class="game__content  game__content--wide">
-      ${game2}
-    </form>
-      <ul class="stats">
-        ${gameStats()}
-      </ul>
-  </section>
-`;
+const game2Template = (gameTemplate, stats) => {
+  return `
+    ${gameHeader}
+    <section class="game">
+      ${gameName(`game-2`)}
+      <form class="game__content  game__content--wide">
+        ${gameTemplate}
+      </form>
+        <ul class="stats">
+          ${stats}
+        </ul>
+    </section>
+  `;
+};
 
 const changeFormGame1 = () => {
   let form = document.querySelector(`.game__content`);
@@ -27,7 +29,7 @@ const changeFormGame1 = () => {
 };
 
 const moduleGame2 = () => {
-  getElementFromTemplate(game2Template);
+  getElementFromTemplate(game2Template(game2(), gameStats()));
   changeFormGame1();
   moduleBackBtn();
   game();

@@ -7,18 +7,20 @@ import game3 from './../data/utils/get-game-3.js';
 import moduleGame1 from './module-game-1.js';
 import game from './../data/utils/game.js';
 
-const game3Template = `
+const game3Template = (gameTemplate) => {
+  return `
   ${gameHeader}
   <section class="game">
     ${gameName(`game-3`)}
     <form class="game__content  game__content--triple">
-      ${game3}
+      ${gameTemplate}
     </form>
       <ul class="stats">
         ${gameStats()}
       </ul>
   </section>
 `;
+};
 
 const changeFormGame1 = () => {
   let form = document.querySelector(`.game__content`);
@@ -27,7 +29,7 @@ const changeFormGame1 = () => {
 };
 
 const moduleGame3 = () => {
-  getElementFromTemplate(game3Template);
+  getElementFromTemplate(game3Template(game3()));
   changeFormGame1();
   moduleBackBtn();
   game();

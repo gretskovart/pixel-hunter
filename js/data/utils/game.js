@@ -8,7 +8,7 @@ import images from './../game-images.js';
 const prepArrGame1 = [];
 
 const GAME_2_QUESTIONS_COUNT = 2;
-const NORMAL_VELOCITY = 11;
+const NORMAL_VELOCITY = 21;
 const ANSWERS_COUNT = 10;
 
 const selectAnswers = (evt) => {
@@ -22,9 +22,10 @@ const selectAnswers = (evt) => {
     let existingType = getSelectedImgType(imgUrl);
     isCorrect = (existingType === value) ? true : false;
 
-  } else if (target.tagName === `INPUT` && target.parentNode.parentNode.classList.contains(`game__content--triple`)) {
-    let imgUrl = target.querySelector(`img`).src;
+  } else if (target.tagName === `IMG` && target.parentNode.parentNode.classList.contains(`game__content--triple`)) {
+    let imgUrl = target.src;
     let existingType = getSelectedImgType(imgUrl);
+
     isCorrect = (existingType === `paint`) ? true : false;
   }
 

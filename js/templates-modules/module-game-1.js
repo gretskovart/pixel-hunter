@@ -34,15 +34,16 @@ const selectAnswersGame1Handlers = () => {
 const changeFormGame1 = () => {
   let form = document.querySelector(`.game__content`);
 
-  form.addEventListener(`change`, selectAnswersGame1Handlers);
+  form.addEventListener(`change`, (evt) => {
+    game(evt);
+    selectAnswersGame1Handlers();
+  });
 };
 
 const moduleGame1 = () => {
   getElementFromTemplate(game1Template(game1(), gameStats()));
-  selectAnswersGame1Handlers();
   changeFormGame1();
   moduleBackBtn();
-  game();
 };
 
 export default moduleGame1;

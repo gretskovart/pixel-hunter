@@ -22,17 +22,19 @@ const game2Template = (gameTemplate, stats) => {
   `;
 };
 
-const changeFormGame1 = () => {
+const changeFormGame2 = () => {
   let form = document.querySelector(`.game__content`);
 
-  form.addEventListener(`change`, moduleGame3);
+  form.addEventListener(`change`, (evt) => {
+    game(evt);
+    moduleGame3();
+  });
 };
 
 const moduleGame2 = () => {
   getElementFromTemplate(game2Template(game2(), gameStats()));
-  changeFormGame1();
+  changeFormGame2();
   moduleBackBtn();
-  game();
 };
 
 export default moduleGame2;

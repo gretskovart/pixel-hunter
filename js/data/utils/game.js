@@ -5,37 +5,42 @@ import changeLevel from './change-level.js';
 import gameScore from './../../templates-modules/module-stats.js';
 import images from './../game-images.js';
 
-const makeGame = () => {
-  if (info.level < 10) {
-    changeLevel(info.level);
-    selectAnswersHandlers();
-  } else if (info.level >= 10) {
-    gameScore();
+const prepArrGame1 = [];
+
+const GAME_2_QUESTIONS_COUNT = 2;
+const NORMAL_VELOCITY = 11;
+const ANSWERS_COUNT = 10;
+
+const selectAnswers = (evt) => {
+  let target = evt.target;
+  let isCorrect;
+
+  const value = target.value;
+
+  if (target.tagName === `INPUT`) {
+    let imgUrl = target.parentNode.parentNode.querySelector(`img`).src;
+    let existingType = getSelectedImgType(imgUrl);
+    isCorrect = (existingType === value) ? true : false;
+
+  } else if (target.tagName === `INPUT` && target.parentNode.parentNode.classList.contains(`game__content--triple`)) {
+    let imgUrl = target.querySelector(`img`).src;
+    let existingType = getSelectedImgType(imgUrl);
+    isCorrect = (existingType === `paint`) ? true : false;
   }
-};
 
-const selectAnswersHandlers = () => {
-  let game = document.querySelector(`.game`);
+  if (target.parentNode.parentNode.parentNode.childElementCount === GAME_2_QUESTIONS_COUNT) {
+    prepArrGame1.push(isCorrect);
 
-  game.addEventListener(`change`, (evt) => {
-    let target = evt.target;
-    let isCorrect;
+    if (prepArrGame1.length === GAME_2_QUESTIONS_COUNT) {
+      let fullAnswer = prepArrGame1.reduce((a, b) => a * b);
 
-    const value = target.value;
-
-    if (target.tagName === `INPUT`) {
-      let imgUrl = target.parentNode.parentNode.querySelector(`img`).src;
-      let existingType = getSelectedImgType(imgUrl);
-      isCorrect = (existingType === value) ? true : false;
-
-    } else if (target.tagName === `INPUT` && target.parentNode.parentNode.classList.contains(`game__content--triple`)) {
-      let imgUrl = target.querySelector(`img`).src;
-      let existingType = getSelectedImgType(imgUrl);
-      isCorrect = (existingType === `paint`) ? true : false;
+      prepArrGame1.splice(0, prepArrGame1.length);
+      saveAnswers(!!fullAnswer, NORMAL_VELOCITY);
     }
 
-    saveAnswers(isCorrect, 11);
-  });
+  } else {
+    saveAnswers(isCorrect, NORMAL_VELOCITY);
+  }
 };
 
 const getSelectedImgType = (url) => {
@@ -66,6 +71,12 @@ const saveAnswers = (isCorrect, time) => {
   answer.isNormal = (time >= QUICK_RESPONSE_TIMELIMIT && time <= SLOW_RESPONSE_TIMELIMIT) ? true : null;
 
   info.answers.push(answer);
+
+  if (info.level < ANSWERS_COUNT) {
+    changeLevel(info.level);
+  } else {
+    gameScore();
+  }
 };
 
-export default makeGame;
+export default selectAnswers;

@@ -28,7 +28,7 @@ const selectAnswers = (evt) => {
     isCorrect = (existingType === `paint`) ? true : false;
   }
 
-  if (target.parentNode.parentNode.parentNode.childElementCount === GAME_2_QUESTIONS_COUNT) {
+  if (target.parentNode.parentNode.parentNode.childElementCount === GAME_2_QUESTIONS_COUNT && isCorrect !== `undefined`) {
     prepArrGame1.push(isCorrect);
 
     if (prepArrGame1.length === GAME_2_QUESTIONS_COUNT) {

@@ -1,61 +1,38 @@
 import getElementFromTemplate from './../render-element.js';
-import moduleStats from './module-stats.js';
-import moduleBackBtn from './module-back-btn.js';
+import moduleBackBtn from './components/module-back-btn.js';
+import gameHeader from './components/game-header.js';
+import gameStats from './components/game-stats.js';
+import gameName from './../data/utils/get-game-name.js';
+import game3 from './../data/utils/get-game-3.js';
+import moduleGame1 from './module-game-1.js';
+import game from './../data/utils/game.js';
 
-const game3Template = `
-  <header class="header">
-  <button class="back">
-    <span class="visually-hidden">Вернуться к началу</span>
-    <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
-      <use xlink:href="img/sprite.svg#arrow-left"></use>
-    </svg>
-    <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
-      <use xlink:href="img/sprite.svg#logo-small"></use>
-    </svg>
-  </button>
-  <div class="game__timer">NN</div>
-  <div class="game__lives">
-    <img src="img/heart__empty.svg" class="game__heart" alt="Life" width="31" height="27">
-    <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
-    <img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">
-  </div>
-  </header>
+const game3Template = (gameTemplate) => {
+  return `
+  ${gameHeader}
   <section class="game">
-  <p class="game__task">Найдите рисунок среди изображений</p>
-  <form class="game__content  game__content--triple">
-    <div class="game__option">
-      <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-    </div>
-    <div class="game__option  game__option--selected">
-      <img src="http://placehold.it/304x455" alt="Option 2" width="304" height="455">
-    </div>
-    <div class="game__option">
-      <img src="http://placehold.it/304x455" alt="Option 3" width="304" height="455">
-    </div>
-  </form>
-  <ul class="stats">
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--correct"></li>
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--unknown"></li>
-  </ul>
+    ${gameName(`game-3`)}
+    <form class="game__content  game__content--triple">
+      ${gameTemplate}
+    </form>
+      <ul class="stats">
+        ${gameStats()}
+      </ul>
   </section>
 `;
+};
 
 const changeFormGame1 = () => {
   let form = document.querySelector(`.game__content`);
 
-  form.addEventListener(`click`, moduleStats);
+  form.addEventListener(`click`, (evt) => {
+    game(evt);
+    moduleGame1();
+  });
 };
 
 const moduleGame3 = () => {
-  getElementFromTemplate(game3Template);
+  getElementFromTemplate(game3Template(game3()));
   changeFormGame1();
   moduleBackBtn();
 };

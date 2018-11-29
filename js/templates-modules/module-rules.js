@@ -1,6 +1,6 @@
 import getElementFromTemplate from './../render-element.js';
 import moduleGame1 from './module-game-1.js';
-import moduleBackBtn from './module-back-btn.js';
+import moduleBackBtn from './components/module-back-btn.js';
 
 const rulesTemplate = `
   <header class="header">

@@ -1,3 +1,3 @@
-import moduleMain from './templates-modules/module-main.js';
+import moduleMain from './templates-modules/module-welcome.js';
 
 moduleMain();

@@ -1,4 +1,4 @@
-import getElementFromTemplate from './../render-element.js';
+import getElementFromTemplate from '../render-element.js';
 import moduleGreeting from './module-greeting.js';
 
 const mainTemplate = `

@@ -9,7 +9,7 @@ import game from './../data/utils/game.js';
 
 const game1Template = (gameTemplate, stats) => {
   return `
-    ${gameHeader}
+    ${gameHeader()}
     <section class="game">
       ${gameName(`game-1`)}
       <form class="game__content">

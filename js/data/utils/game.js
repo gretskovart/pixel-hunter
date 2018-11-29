@@ -8,7 +8,7 @@ import images from './../game-images.js';
 const prepArrGame1 = [];
 
 const GAME_2_QUESTIONS_COUNT = 2;
-const NORMAL_VELOCITY = 21;
+const NORMAL_VELOCITY = 11;
 const ANSWERS_COUNT = 10;
 
 const selectAnswers = (evt) => {
@@ -66,10 +66,21 @@ const saveAnswers = (isCorrect, time) => {
 
   let answer = {};
 
+  if (isCorrect === true) {
+    answer.isQuick = (time < QUICK_RESPONSE_TIMELIMIT) ? true : null;
+    answer.isSlow = (time > SLOW_RESPONSE_TIMELIMIT) ? true : null;
+    answer.isNormal = (time >= QUICK_RESPONSE_TIMELIMIT && time <= SLOW_RESPONSE_TIMELIMIT) ? true : null;
+
+  } else if (isCorrect === false) {
+    if (info.lives === 0) {
+      return gameScore();
+
+    }
+
+    info.lives--;
+  }
+
   answer.isCorrect = isCorrect;
-  answer.isQuick = (time < QUICK_RESPONSE_TIMELIMIT) ? true : null;
-  answer.isSlow = (time > SLOW_RESPONSE_TIMELIMIT) ? true : null;
-  answer.isNormal = (time >= QUICK_RESPONSE_TIMELIMIT && time <= SLOW_RESPONSE_TIMELIMIT) ? true : null;
 
   info.answers.push(answer);
 

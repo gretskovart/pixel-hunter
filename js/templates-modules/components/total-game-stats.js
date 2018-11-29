@@ -32,7 +32,6 @@ const getCountsOfAnswerByType = (type) => gameInfo.answers.filter((answer) => an
 
 const successTemplate = () => {
   let templateArr = [];
-console.log(getCountsOfAnswerByType(`isCorrect`));
 
   let totalFast = getCountsOfAnswerByType(`isQuick`);
   let totalSlow = getCountsOfAnswerByType(`isSlow`);

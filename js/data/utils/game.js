@@ -73,8 +73,9 @@ const saveAnswers = (isCorrect, time) => {
 
   } else if (isCorrect === false) {
     if (info.lives === 0) {
-      return gameScore();
+      gameScore();
 
+      return;
     }
 
     info.lives--;

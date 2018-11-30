@@ -1,18 +1,14 @@
-import getElementFromTemplate from '../render-element.js';
 import moduleGreeting from './module-greeting.js';
+import WelcomeView from './../view/view-welcome.js';
 
-const mainTemplate = `
-  <section class="intro">
-    <button class="intro__asterisk asterisk" type="button"><span class="visually-hidden">Продолжить</span>*</button>
-    <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
-  </section>
-`;
+const getWelcomeScreen = () => {
+  const welcome = new WelcomeView();
+  const welcomeScreen = welcome.render();
 
-const changeScreenToGreeting = () => document.querySelector(`.intro__asterisk`).addEventListener(`click`, moduleGreeting);
+  welcome.clickStartHandler = moduleGreeting;
+  welcome.bind();
 
-const moduleMain = () => {
-  getElementFromTemplate(mainTemplate);
-  changeScreenToGreeting();
+  return welcomeScreen;
 };
 
-export default moduleMain;
+export default getWelcomeScreen;

@@ -1,4 +1,4 @@
-import info from './../game-info.js';
+import {gameInfo} from './../game-info.js';
 import changeLevel from './change-level.js';
 // import changeTime from './change-time.js';
 // import reduceLife from './reduce-life.js';
@@ -72,21 +72,19 @@ const saveAnswers = (isCorrect, time) => {
     answer.isNormal = (time >= QUICK_RESPONSE_TIMELIMIT && time <= SLOW_RESPONSE_TIMELIMIT) ? true : null;
 
   } else if (isCorrect === false) {
-    if (info.lives === 0) {
+    if (gameInfo.lives === 0) {
       gameScore();
-
-      return;
+    } else {
+      gameInfo.lives--;
     }
-
-    info.lives--;
   }
 
   answer.isCorrect = isCorrect;
 
-  info.answers.push(answer);
+  gameInfo.answers.push(answer);
 
-  if (info.level < ANSWERS_COUNT) {
-    changeLevel(info.level);
+  if (gameInfo.level < ANSWERS_COUNT) {
+    changeLevel(gameInfo.level);
   } else {
     gameScore();
   }

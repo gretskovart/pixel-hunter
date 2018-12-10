@@ -1,10 +1,10 @@
-import info from './../../data/game-info.js';
+import {gameInfo} from './../../data/game-info.js';
 
 const getStatsPanel = () => {
   let statsPanel = [];
 
   for (let index = 0; index < 10; index++) {
-    const answers = info.answers;
+    const answers = gameInfo.answers;
 
     if (answers.length === 0 || answers[index] === undefined) {
       statsPanel.push(`

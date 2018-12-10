@@ -1,4 +1,4 @@
-import gameInfo from './../../data/game-info.js';
+import {gameInfo} from './../../data/game-info.js';
 
 const LIVES_COUNT_LIMIT = 3;
 

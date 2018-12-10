@@ -1,5 +1,5 @@
 import moduleGreeting from './../module-greeting.js';
-import gameInfo from './../../data/game-info.js';
+import {gameInfo} from './../../data/game-info.js';
 
 const clickBackBtn = (nextModule) => {
   let backBtn = document.querySelector(`.back`);

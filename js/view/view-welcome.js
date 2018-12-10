@@ -1,6 +1,10 @@
 import AbstractView from './abstract-view.js';
 
 class WelcomeView extends AbstractView {
+  constructor() {
+    super();
+  }
+
   get template() {
     return `
       <section class="intro">

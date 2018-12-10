@@ -1,4 +1,4 @@
-import gameInfo from './../../data/game-info.js';
+import {gameInfo} from './../../data/game-info.js';
 import gameStats from './game-stats.js';
 
 const ANSWERS_COUNT = 10;

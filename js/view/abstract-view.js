@@ -1,6 +1,12 @@
 import renderElement from './../render-element.js';
 
 class AbstractView {
+  constructor() {
+    if (new.target === AbstractView) {
+      throw new Error(`Can't instantiate AbstractView, only concrete one`);
+    }
+  }
+
   get template() {}
 
   get element() {
@@ -8,7 +14,7 @@ class AbstractView {
       return this._element;
     }
 
-    this._element = this.renderElement();
+    this._element = this.render();
     this.bind(this._element);
 
     return this._element;

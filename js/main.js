@@ -1,3 +1,3 @@
-import getWelcomeScreen from './templates-modules/module-welcome.js';
+import Application from './application.js';
 
-getWelcomeScreen();
+Application.showWelcome();

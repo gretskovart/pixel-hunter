@@ -1,4 +1,4 @@
-import info from './../game-info.js';
+import {gameInfo} from './../game-info.js';
 
 export default (level) => {
   if (typeof level !== `number`) {
@@ -13,7 +13,7 @@ export default (level) => {
   }
 
   let currentLevel = level + 1;
-  info.level = currentLevel;
+  gameInfo.level = currentLevel;
 
   return currentLevel;
 };

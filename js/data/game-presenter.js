@@ -17,16 +17,9 @@ export default class GamePresenter {
 
     this.content = this.gameLevel;
 
-    // не работает оба вывода - header
-
-    console.log(this._header.element);
-    console.log(this.content.element);
-
-    // не работает оба вывода - header
-
     this.root = document.createElement(`div`);
-    this.root.appendChild(this._header.element);
-    this.root.appendChild(this.content.element);
+    this.root.appendChild(this._header.render());
+    this.root.appendChild(this.content.render());
 
     this.tic = () => this.model.tic();
 
@@ -75,7 +68,8 @@ export default class GamePresenter {
 
     header.getBack = () => this.getBack();
 
-    this.element.replaceChild(header.element.childNodes[0], this._header.element.childNodes[0]);
+    this.root.childNodes[0].replaceChild(header.render().childNodes[0], this.root.childNodes[0].childNodes[0]);
+
     this._header = header;
   }
 

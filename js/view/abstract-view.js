@@ -1,4 +1,4 @@
-import renderElement from './../render-element.js';
+import {createElement} from './../render-element.js';
 
 class AbstractView {
   constructor() {
@@ -21,7 +21,7 @@ class AbstractView {
   }
 
   render() {
-    return renderElement(this.template);
+    return createElement(this.template);
   }
 
   bind() {}

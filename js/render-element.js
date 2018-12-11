@@ -1,22 +1,18 @@
 const mainBlock = document.querySelector(`#main`);
 
-export default (html) => {
-  const template = document.createElement(`template`);
-
+const clearScreen = () => {
   mainBlock.innerHTML = ``;
-  template.innerHTML = html;
-
-  const content = wrap(template);
-
-  mainBlock.appendChild(content);
-  return mainBlock;
 };
 
-const wrap = (it) => {
-  const shadow = document.createElement(`div`);
-  const content = it.content.cloneNode(true);
-  shadow.appendChild(content);
+export const renderScreen = (screen) => {
+  clearScreen();
 
-  return shadow.cloneNode(true);
+  mainBlock.appendChild(screen);
 };
 
+export const createElement = (template) => {
+  const wrapper = document.createElement(`div`);
+  wrapper.innerHTML = template.trim();
+
+  return wrapper;
+};

@@ -7,14 +7,15 @@ import ViewGame3 from './view/view-game-3.js';
 import ViewStats from './view/view-stats.js';
 import GameModel from './data/game-model.js';
 import GamePresenter from './data/game-presenter.js';
-import renderElement from './render-element.js';
+import {renderScreen} from './render-element.js';
 
 export default class Application {
   static showWelcome() {
     const welcome = new ViewWelcome();
 
     welcome.clickStartHandler = () => Application.showGreeting();
-    welcome.render();
+
+    renderScreen(welcome.render());
     welcome.bind();
   }
 
@@ -22,7 +23,8 @@ export default class Application {
     const greeting = new ViewGreeting();
 
     greeting.clickNextHandler = () => Application.showRules();
-    greeting.render();
+
+    renderScreen(greeting.render());
     greeting.bind();
   }
 
@@ -41,7 +43,7 @@ export default class Application {
       }
     };
 
-    renderElement(rules.element);
+    renderScreen(rules.render());
     rules.bind();
   }
 
@@ -56,7 +58,7 @@ export default class Application {
 
     game.onEndGame = (state) => Application.showStats(state);
 
-    renderElement(game.root.innerHTML);
+    renderScreen(game.root);
     game.bind();
   }
 

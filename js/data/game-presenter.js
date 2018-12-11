@@ -12,7 +12,7 @@ export default class GamePresenter {
 
     this._header = new ViewHeader(this.model.state);
     this.bind = () => this._header.bind();
-    this.getBack = () => this._header.getBack();
+
     this._header.getBack = () => this.getBack();
 
     this.content = this.gameLevel;
@@ -67,10 +67,12 @@ export default class GamePresenter {
     const header = new ViewHeader(this.model.state);
 
     header.getBack = () => this.getBack();
+    this._header.bind = () => this.bind();
 
     this.root.childNodes[0].replaceChild(header.render().childNodes[0], this.root.childNodes[0].childNodes[0]);
 
     this._header = header;
+    this._header.bind();
   }
 
   startTimer() {

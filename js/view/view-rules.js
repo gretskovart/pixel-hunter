@@ -33,11 +33,12 @@ class RulesView extends AbstractView {
       return this._element;
     }
 
-    let template = [];
+    this._element = document.createElement(`div`);
+    this._element.appendChild(this._header.render());
+    this._element.appendChild(this.render());
 
-    template.push(this._header.template);
-    template.push(this.template);
-    this._element = template.join(``);
+console.log(this._element);
+
 
     return this._element;
   }
@@ -51,7 +52,7 @@ class RulesView extends AbstractView {
   bind() {
     document.addEventListener(`keyup`, this.changeNameInput);
     document.querySelector(`.rules__form`).addEventListener(`submit`, this.submitStartGame);
-    document.querySelector(`.back`).addEventListener(`click`, this.getBack());
+    document.querySelector(`.back`).addEventListener(`click`, this.getBack);
   }
 }
 

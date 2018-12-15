@@ -40,7 +40,7 @@ export default class Application {
       }
     };
 
-    renderScreen(rules.render());
+    renderScreen(rules.element);
     rules.bind();
   }
 

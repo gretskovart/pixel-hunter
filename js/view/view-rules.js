@@ -37,9 +37,6 @@ class RulesView extends AbstractView {
     this._element.appendChild(this._header.render());
     this._element.appendChild(this.render());
 
-console.log(this._element);
-
-
     return this._element;
   }
 

@@ -51,7 +51,7 @@ class RulesView extends AbstractView {
   bind() {
     document.addEventListener(`keyup`, this.changeNameInput);
     document.querySelector(`.rules__form`).addEventListener(`submit`, this.submitStartGame);
-    document.querySelector(`.back`).addEventListener(`click`, this.getBack);
+    document.querySelector(`.back`).addEventListener(`click`, this.getBack());
   }
 }
 

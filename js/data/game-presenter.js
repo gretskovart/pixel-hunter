@@ -1,10 +1,9 @@
+import constants from './../data/constants.js';
 import ViewHeader from './../view/view-header.js';
 import {questions} from './game-info.js';
 import Game1View from './../view/view-game-1.js';
 import Game2View from './../view/view-game-2.js';
 import Game3View from './../view/view-game-3.js';
-
-const ONE_SEC = 1000;
 
 export default class GamePresenter {
   constructor(model) {
@@ -30,7 +29,7 @@ export default class GamePresenter {
   }
 
   get gameLevel() {
-    if (!this.model.currentLevel || this.model.isOver()) {
+    if (this.model.gameIsOver() || !questions[this.model.state.level]) {
       this.onEndGame(this.model.state);
 
       return false;
@@ -39,18 +38,21 @@ export default class GamePresenter {
     switch (questions[this.model.state.level].type) {
       case `game1`:
         this.game = new Game1View(questions[this.model.state.level]);
+
         break;
 
       case `game2`:
         this.game = new Game2View(questions[this.model.state.level]);
+
         break;
 
       case `game3`:
         this.game = new Game3View(questions[this.model.state.level]);
+
         break;
     }
 
-    // this.game.onAnswer = (answer) => this._onAnswer(answer);
+    this.game.onAnswer = (answer) => this._onAnswer(answer);
 
     return this.game;
   }
@@ -60,7 +62,14 @@ export default class GamePresenter {
   }
 
   updateGame() {
+    const level = this.gameLevel;
 
+    if (level) {
+      this.root.childNodes[1].replaceChild(level.element, this.root.childNodes[1].childNodes[0]);
+      this.content = level;
+      this.content.bind();
+      this.startTimer();
+    }
   }
 
   updateHeader() {
@@ -77,9 +86,14 @@ export default class GamePresenter {
 
   startTimer() {
     this._interval = setInterval(() => {
-      this.tic();
-      this.updateHeader();
-    }, ONE_SEC);
+      this.model.tic();
+
+      if (this.model.state.time <= 0) {
+        this._onAnswer({isCorrect: false});
+      } else {
+        this.updateHeader();
+      }
+    }, constants.ONE_SEC);
   }
 
   stopTimer() {
@@ -91,8 +105,11 @@ export default class GamePresenter {
 
   }
 
-  onAnswer() {
-
+  _onAnswer(answer) {
+    this.stopTimer();
+    this.model.onAnswer(answer);
+    this.updateHeader();
+    this.updateGame();
   }
 
   onEndGame() {}

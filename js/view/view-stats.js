@@ -22,6 +22,12 @@ class StatsView extends AbstractView {
       </table>
     </section>`;
   }
+
+  getBack() {}
+
+  bind() {
+    document.querySelector(`.back`).addEventListener(`click`, this.getBack);
+  }
 }
 
 export default StatsView;

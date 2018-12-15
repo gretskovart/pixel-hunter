@@ -1,6 +1,5 @@
 import AbstractView from './abstract-view.js';
 import gameStats from './../templates-modules/components/game-stats.js';
-import game from './../data/utils/game.js';
 
 class Game3View extends AbstractView {
   constructor(level) {
@@ -14,8 +13,8 @@ class Game3View extends AbstractView {
         <p class="game__task">${this.level.task}</p>
         <form class="game__content  game__content--triple">
         ${this.level.options.map((option) => `
-          <div class="game__option">
-            <img src="${option.src}" alt="Option 1" width="304" height="455">;
+          <div class="game__option" data-is-correct="${option.isCorrect}">
+            <img src="${option.src}" alt="Option 1" width="304" height="455">
           </div>
         `)}
         </form>
@@ -26,13 +25,19 @@ class Game3View extends AbstractView {
     `;
   }
 
-  selectAnswersGame3() {}
+  formChangeHandler(evt) {
+    const option = evt.target.closest(`.game__option`);
+
+    if (option) {
+      const isCorrect = option.dataset.isCorrect === `true`;
+      const answer = isCorrect;
+
+      this.onAnswer(answer);
+    }
+  }
 
   bind() {
-    document.querySelector(`.game__content`).addEventListener(`click`, (evt) => {
-      game(evt);
-      this.selectAnswersGame3();
-    });
+    document.querySelector(`.game__content`).addEventListener(`click`, (evt) => this.formChangeHandler(evt));
   }
 }
 

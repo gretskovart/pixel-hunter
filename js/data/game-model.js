@@ -1,5 +1,6 @@
 import {gameInfo} from './game-info.js';
 import changeTime from './utils/change-time.js';
+import * as game from './../data/utils/game.js';
 
 const GAME_STATUS_INITIAL = gameInfo;
 
@@ -19,18 +20,9 @@ export default class GameModel {
   get currentLives() {
     return gameInfo.lives;
   }
-  /*
-  get currentLevel() {
-    return game.getLevel(this._state.level);
-  }
-  */
-
-  isOver() {
-    return gameInfo.lives <= 0;
-  }
 
   gameIsOver() {
-    return this._state <= 0;
+    return this._state.lives <= 0;
   }
 
   restartGame() {
@@ -43,5 +35,11 @@ export default class GameModel {
 
   tic() {
     this._state = changeTime(this._state);
+  }
+
+  onAnswer(answer) {
+    game.saveAnswer(this._state, answer);
+    game.updateLives(this._state, answer);
+    game.changeLevel(this._state, this._state.level + 1);
   }
 }

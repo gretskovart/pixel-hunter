@@ -1,5 +1,4 @@
 import AbstractView from "./abstract-view";
-import {gameInfo} from './../data/game-info.js';
 
 class HeaderView extends AbstractView {
   constructor(state) {
@@ -28,7 +27,7 @@ class HeaderView extends AbstractView {
     const gameHeart = `<img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">`;
     const gameHeartEmpty = `<img src="img/heart__empty.svg" class="game__heart" alt=" Missed Life" width="31" height="27">`;
 
-    let countOfLives = gameInfo.lives;
+    let countOfLives = this.state.lives;
     let countOfEmptyLives = LIVES_COUNT_LIMIT - countOfLives;
     let heartsTemplate = ``;
 
@@ -49,18 +48,16 @@ class HeaderView extends AbstractView {
   }
 
   _clearInfo() {
-    gameInfo.level = 1;
-    gameInfo.lives = 3;
-    gameInfo.time = 0;
-    gameInfo.answers.length = 0;
+    this.state.level = 1;
+    this.state.lives = 3;
+    this.state.time = 0;
+    this.state.answers.length = 0;
   }
 
   getBack() {}
 
   bind() {
-    document.querySelector(`.back`).addEventListener(`click`, () => {
-      this.getBack();
-    });
+    document.querySelector(`.back`).addEventListener(`click`, () => this.getBack());
   }
 }
 

@@ -1,93 +1,59 @@
-import {gameInfo} from './../game-info.js';
-import changeLevel from './change-level.js';
-// import changeTime from './change-time.js';
-// import reduceLife from './reduce-life.js';
-import gameScore from './../../templates-modules/module-stats.js';
-import images from './../game-images.js';
+const QUICK_RESPONSE_TIMELIMIT = 10;
+const SLOW_RESPONSE_TIMELIMIT = 20;
 
-const prepArrGame1 = [];
 
-const GAME_2_QUESTIONS_COUNT = 2;
-const NORMAL_VELOCITY = 11;
-const ANSWERS_COUNT = 10;
-
-const selectAnswers = (evt) => {
-  let target = evt.target;
-  let isCorrect;
-
-  const value = target.value;
-
-  if (target.tagName === `INPUT`) {
-    let imgUrl = target.parentNode.parentNode.querySelector(`img`).src;
-    let existingType = getSelectedImgType(imgUrl);
-    isCorrect = (existingType === value) ? true : false;
-
-  } else if (target.tagName === `IMG` && target.parentNode.parentNode.classList.contains(`game__content--triple`)) {
-    let imgUrl = target.src;
-    let existingType = getSelectedImgType(imgUrl);
-
-    isCorrect = (existingType === `paint`) ? true : false;
-  }
-
-  if (target.parentNode.parentNode.parentNode.childElementCount === GAME_2_QUESTIONS_COUNT && isCorrect !== `undefined`) {
-    prepArrGame1.push(isCorrect);
-
-    if (prepArrGame1.length === GAME_2_QUESTIONS_COUNT) {
-      let fullAnswer = prepArrGame1.reduce((a, b) => a * b);
-
-      prepArrGame1.splice(0, prepArrGame1.length);
-      saveAnswers(!!fullAnswer, NORMAL_VELOCITY);
-    }
-
-  } else {
-    saveAnswers(isCorrect, NORMAL_VELOCITY);
-  }
-};
-
-const getSelectedImgType = (url) => {
-  let existingType;
-
-  for (let [key, val] of images.entries()) {
-    for (let valImg of val.values()) {
-      if (valImg === url) {
-        existingType = key;
-
-        return existingType;
-      }
-    }
-  }
-
-  return existingType;
-};
-
-const saveAnswers = (isCorrect, time) => {
-  const QUICK_RESPONSE_TIMELIMIT = 10;
-  const SLOW_RESPONSE_TIMELIMIT = 20;
-
-  let answer = {};
+export const saveAnswer = (state, isCorrect) => {
+  let answerInfo = [];
+  const time = state.time;
 
   if (isCorrect === true) {
-    answer.isQuick = (time < QUICK_RESPONSE_TIMELIMIT) ? true : null;
-    answer.isSlow = (time > SLOW_RESPONSE_TIMELIMIT) ? true : null;
-    answer.isNormal = (time >= QUICK_RESPONSE_TIMELIMIT && time <= SLOW_RESPONSE_TIMELIMIT) ? true : null;
-
-  } else if (isCorrect === false) {
-    if (gameInfo.lives === 0) {
-      gameScore();
-    } else {
-      gameInfo.lives--;
-    }
+    answerInfo.isQuick = (time < QUICK_RESPONSE_TIMELIMIT) ? true : null;
+    answerInfo.isSlow = (time > SLOW_RESPONSE_TIMELIMIT) ? true : null;
+    answerInfo.isNormal = (time >= QUICK_RESPONSE_TIMELIMIT && time <= SLOW_RESPONSE_TIMELIMIT) ? true : null;
   }
 
-  answer.isCorrect = isCorrect;
+  answerInfo.isCorrect = isCorrect;
+  state.answers.push(answerInfo);
 
-  gameInfo.answers.push(answer);
-
-  if (gameInfo.level < ANSWERS_COUNT) {
-    changeLevel(gameInfo.level);
-  } else {
-    gameScore();
-  }
+  return state;
 };
 
-export default selectAnswers;
+export const updateLives = (state, isCorrect) => {
+  let currentCountsOfLives = state.lives;
+
+  if (typeof currentCountsOfLives !== `number`) {
+    throw new Error(`Количество жизней не является числом`);
+
+  } else if (currentCountsOfLives < 0) {
+    throw new Error(`Количество жизней не может быть отрицательным`);
+
+  } else if (currentCountsOfLives > 3) {
+    throw new Error(`Количество жизней не может быть больше 3`);
+
+  } else if (isCorrect === false && currentCountsOfLives > 0) {
+    currentCountsOfLives -= 1;
+    state.lives = currentCountsOfLives;
+  }
+
+  return state;
+};
+
+export const changeLevel = (state) => {
+  let currentLevel = state.level;
+
+  if (typeof currentLevel !== `number`) {
+    throw new Error(`Уровень не является числом`);
+
+  } else if (currentLevel < 0) {
+    throw new Error(`Уровень должен быть не меньше 0`);
+
+  } else if (currentLevel >= 10) {
+    throw new Error(`Уровень должен быть не больше 10`);
+
+  } else {
+    currentLevel += 1;
+    state.level = currentLevel;
+  }
+
+  return state;
+};

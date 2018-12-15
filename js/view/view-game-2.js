@@ -1,6 +1,5 @@
 import AbstractView from './abstract-view.js';
 import gameStats from './../templates-modules/components/game-stats.js';
-import game from './../data/utils/game.js';
 
 class Game2View extends AbstractView {
   constructor(level) {
@@ -16,11 +15,11 @@ class Game2View extends AbstractView {
         <div class="game__option">
         <img src="${this.level.option.src}" alt="Option 1" width="705" height="455">
         <label class="game__answer  game__answer--photo">
-          <input class="visually-hidden" name="question1" type="radio" value="photo">
+          <input class="visually-hidden" name="question1" type="radio" value="photo" data-is-correct="${this.level.option.answers[0]}">
           <span>Фото</span>
         </label>
         <label class="game__answer  game__answer--paint">
-          <input class="visually-hidden" name="question1" type="radio" value="paint">
+          <input class="visually-hidden" name="question1" type="radio" value="paint" data-is-correct="${this.level.option.answers[1]}">
           <span>Рисунок</span>
         </label>
       </div>
@@ -32,13 +31,19 @@ class Game2View extends AbstractView {
     `;
   }
 
-  selectAnswersGame2() {}
+  formChangeHandler(evt) {
+    const isAnswered = evt.target.checked;
+
+    if (isAnswered) {
+      const isCorrect = evt.target.checked && evt.target.dataset.isCorrect === `true`;
+      const answer = isCorrect;
+
+      this.onAnswer(answer);
+    }
+  }
 
   bind() {
-    document.querySelector(`.game__content`).addEventListener(`change`, (evt) => {
-      game(evt);
-      this.selectAnswersGame2();
-    });
+    document.querySelector(`.game__content`).addEventListener(`change`, (evt) => this.formChangeHandler(evt));
   }
 }
 

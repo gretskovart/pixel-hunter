@@ -1,13 +1,13 @@
 import constants from './../data/constants.js';
 import ViewHeader from './../view/view-header.js';
-import {questions} from './game-info.js';
 import Game1View from './../view/view-game-1.js';
 import Game2View from './../view/view-game-2.js';
 import Game3View from './../view/view-game-3.js';
 
 export default class GamePresenter {
-  constructor(model) {
+  constructor(data, model) {
     this.model = model;
+    this.model.questions = data;
 
     this._header = new ViewHeader(this.model.state);
     this.bind = () => this._header.bind();
@@ -29,25 +29,25 @@ export default class GamePresenter {
   }
 
   get gameLevel() {
-    if (this.model.gameIsOver() || !questions[this.model.state.level]) {
+    if (this.model.gameIsOver() || !this.model.questions[this.model.state.level]) {
       this.onEndGame(this.model.state);
 
       return false;
     }
 
-    switch (questions[this.model.state.level].type) {
+    switch (this.model.questions[this.model.state.level].type) {
       case `game1`:
-        this.game = new Game1View(questions[this.model.state.level]);
+        this.game = new Game1View(this.model.questions[this.model.state.level]);
 
         break;
 
       case `game2`:
-        this.game = new Game2View(questions[this.model.state.level]);
+        this.game = new Game2View(this.model.questions[this.model.state.level]);
 
         break;
 
       case `game3`:
-        this.game = new Game3View(questions[this.model.state.level]);
+        this.game = new Game3View(this.model.questions[this.model.state.level]);
 
         break;
     }
@@ -99,6 +99,10 @@ export default class GamePresenter {
   stopTimer() {
     clearInterval(this._interval);
     this.model.resetTimer();
+  }
+
+  restartGame() {
+    this.model.restartGame();
   }
 
   updateTimer() {

@@ -14,14 +14,14 @@ class Game1View extends AbstractView {
       <p class="game__task">${this.level.task}</p>
         <form class="game__content">
           ${this.level.options.map((option, i) => `
-            <div class="game__option">
-              <img src="${option.src}" alt="Option 1" width="468" height="458">
+            <div class="game__option" data-type="${option.type}">
+              <img src="${option.src}" alt="Option 1" width="${option.width}" height="${option.height}">
               <label class="game__answer game__answer--photo">
-                <input class="visually-hidden" name="question${i + 1}" type="radio" value="photo" data-is-correct="${option.answers[0]}">
+                <input class="visually-hidden" name="question${i + 1}" type="radio" value="photo">
                 <span>Фото</span>
               </label>
               <label class="game__answer game__answer--paint">
-                <input class="visually-hidden" name="question${i + 1}" type="radio" value="paint" data-is-correct="${option.answers[1]}">
+                <input class="visually-hidden" name="question${i + 1}" type="radio" value="paint">
                 <span>Рисунок</span>
               </label>
             </div>
@@ -39,7 +39,7 @@ class Game1View extends AbstractView {
     const areAllAnswered = Array.from(gameAnswers).filter(({checked}) => checked).length === constants.GAME_1_COUNT_OF_ANSWERS;
 
     if (areAllAnswered) {
-      const isCorrect = Array.from(gameAnswers).filter((answer) => answer.checked && answer.dataset.isCorrect === `true`).length === constants.GAME_1_COUNT_OF_ANSWERS;
+      const isCorrect = Array.from(gameAnswers).filter((answer) => answer.checked && answer.value === answer.parentNode.parentNode.dataset.type).length === constants.GAME_1_COUNT_OF_ANSWERS;
       const answer = isCorrect;
 
       this.onAnswer(answer);

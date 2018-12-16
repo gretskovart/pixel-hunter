@@ -13,12 +13,6 @@ class WelcomeView extends AbstractView {
       </section>
     `;
   }
-
-  clickStartHandler() {}
-
-  bind() {
-    document.querySelector(`.intro__asterisk`).addEventListener(`click`, this.clickStartHandler);
-  }
 }
 
 export default WelcomeView;

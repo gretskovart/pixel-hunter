@@ -1,15 +1,13 @@
-const QUICK_RESPONSE_TIMELIMIT = 10;
-const SLOW_RESPONSE_TIMELIMIT = 20;
-
+import constants from './../constants.js';
 
 export const saveAnswer = (state, isCorrect) => {
   let answerInfo = [];
   const time = state.time;
 
   if (isCorrect === true) {
-    answerInfo.isQuick = (time < QUICK_RESPONSE_TIMELIMIT) ? true : null;
-    answerInfo.isSlow = (time > SLOW_RESPONSE_TIMELIMIT) ? true : null;
-    answerInfo.isNormal = (time >= QUICK_RESPONSE_TIMELIMIT && time <= SLOW_RESPONSE_TIMELIMIT) ? true : null;
+    answerInfo.isQuick = (time > constants.QUICK_RESPONSE_TIMELIMIT) ? true : null;
+    answerInfo.isSlow = (time < constants.SLOW_RESPONSE_TIMELIMIT) ? true : null;
+    answerInfo.isNormal = (time <= constants.QUICK_RESPONSE_TIMELIMIT && time >= constants.SLOW_RESPONSE_TIMELIMIT) ? true : null;
   }
 
   answerInfo.isCorrect = isCorrect;

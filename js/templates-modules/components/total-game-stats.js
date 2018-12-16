@@ -1,10 +1,6 @@
 import {gameInfo} from './../../data/game-info.js';
 import gameStats from './game-stats.js';
-
-const ANSWERS_COUNT = 10;
-const BONUS_FOR_PER_LIFE = 50;
-const BONUS_FOR_TIME = 50;
-const BONUS_FOR_CORRECT_ANSWER = 100;
+import constants from './../../data/constants.js';
 
 let totalAnswersBonus = 0;
 let totalLifeBonus = 0;
@@ -37,10 +33,10 @@ const successTemplate = () => {
   let totalSlow = getCountsOfAnswerByType(`isSlow`);
   let totalAnswers = getCountsOfAnswerByType(`isCorrect`);
 
-  totalFastBonus = totalFast * BONUS_FOR_TIME;
-  totalSlowBonus = totalSlow * BONUS_FOR_TIME;
-  totalAnswersBonus = totalAnswers * BONUS_FOR_CORRECT_ANSWER;
-  totalLifeBonus = gameInfo.lives * BONUS_FOR_PER_LIFE;
+  totalFastBonus = totalFast * constants.BONUS_FOR_TIME;
+  totalSlowBonus = totalSlow * constants.BONUS_FOR_TIME;
+  totalAnswersBonus = totalAnswers * constants.BONUS_FOR_CORRECT_ANSWER;
+  totalLifeBonus = gameInfo.lives * constants.BONUS_FOR_PER_LIFE;
   total = totalFastBonus + totalAnswersBonus + totalLifeBonus - totalSlowBonus;
 
   templateArr.push(`
@@ -51,7 +47,7 @@ const successTemplate = () => {
           ${gameStats()}
         </ul>
       </td>
-      <td class="result__points">× ${BONUS_FOR_CORRECT_ANSWER}</td>
+      <td class="result__points">× ${constants.BONUS_FOR_CORRECT_ANSWER}</td>
       <td class="result__total">${totalAnswersBonus}</td>
     </tr>`
   );
@@ -63,7 +59,7 @@ const successTemplate = () => {
         <td></td>
         <td class="result__extra">Бонус за скорость:</td>
   <td class="result__extra">${totalFast}<span class="stats__result stats__result--fast"></span></td>
-        <td class="result__points">× ${BONUS_FOR_TIME}</td>
+        <td class="result__points">× ${constants.BONUS_FOR_TIME}</td>
         <td class="result__total">${totalFastBonus}</td>
       </tr>`
     );
@@ -75,7 +71,7 @@ const successTemplate = () => {
         <td></td>
         <td class="result__extra">Бонус за жизни:</td>
   <td class="result__extra">${gameInfo.lives}<span class="stats__result stats__result--alive"></span></td>
-        <td class="result__points">× ${BONUS_FOR_PER_LIFE}</td>
+        <td class="result__points">× ${constants.BONUS_FOR_PER_LIFE}</td>
         <td class="result__total">${totalLifeBonus}</td>
       </tr>`
     );
@@ -87,7 +83,7 @@ const successTemplate = () => {
         <td></td>
         <td class="result__extra">Штраф за медлительность:</td>
   <td class="result__extra">${totalSlow}<span class="stats__result stats__result--slow"></span></td>
-        <td class="result__points">× ${BONUS_FOR_TIME}</td>
+        <td class="result__points">× ${constants.BONUS_FOR_TIME}</td>
         <td class="result__total">-${totalSlowBonus}</td>
       </tr>`
     );
@@ -111,7 +107,7 @@ const checkTimes = (prop) => {
 };
 
 let getTotalStats = () => {
-  if (gameInfo.answers.length !== ANSWERS_COUNT) {
+  if (gameInfo.answers.length !== constants.ANSWERS_COUNT) {
     statsTemplate = failTemplate();
   } else {
     statsTemplate = successTemplate();

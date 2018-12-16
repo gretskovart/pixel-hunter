@@ -12,30 +12,31 @@ class Game2View extends AbstractView {
       <section class="game">
         <p class="game__task">${this.level.task}</p>
         <form class="game__content game__content--wide">
-        <div class="game__option">
-        <img src="${this.level.option.src}" alt="Option 1" width="705" height="455">
-        <label class="game__answer  game__answer--photo">
-          <input class="visually-hidden" name="question1" type="radio" value="photo" data-is-correct="${this.level.option.answers[0]}">
-          <span>Фото</span>
-        </label>
-        <label class="game__answer  game__answer--paint">
-          <input class="visually-hidden" name="question1" type="radio" value="paint" data-is-correct="${this.level.option.answers[1]}">
-          <span>Рисунок</span>
-        </label>
-      </div>
+          <div class="game__option" data-type="${this.level.options[0].type}">
+            <img src="${this.level.options[0].src}}" alt="Option 1" width="${this.level.options[0].width}}" height="${this.level.options[0].height}}">
+            <label class="game__answer  game__answer--photo">
+              <input class="visually-hidden" name="question1" type="radio" value="photo">
+              <span>Фото</span>
+            </label>
+            <label class="game__answer  game__answer--paint">
+              <input class="visually-hidden" name="question1" type="radio" value="paint">
+              <span>Рисунок</span>
+            </label>
+          </div>
         </form>
-          <ul class="stats">
-            ${gameStats()}
-          </ul>
+        <ul class="stats">
+          ${gameStats()}
+        </ul>
       </section>
     `;
   }
 
   formChangeHandler(evt) {
-    const isAnswered = evt.target.checked;
+    const target = evt.target;
+    const isAnswered = target.checked;
 
     if (isAnswered) {
-      const isCorrect = evt.target.checked && evt.target.dataset.isCorrect === `true`;
+      const isCorrect = target.value === target.parentNode.parentNode.dataset.type;
       const answer = isCorrect;
 
       this.onAnswer(answer);

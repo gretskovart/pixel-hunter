@@ -61,7 +61,6 @@ export default class Application {
     };
 
     game.onEndGame = (state) => {
-      debugger;
       Application.showStats(state);
       game.restartGame();
     };

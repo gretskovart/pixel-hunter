@@ -7,7 +7,7 @@ class StatsView extends AbstractView {
   constructor(results) {
     super();
     this.results = results.map((result) => this.getStats(result));
-    console.log(this.results);
+    // console.log(this.results);
   }
 
   get template() {

@@ -1,5 +1,5 @@
 import {gameInfo} from './../../data/game-info.js';
-import gameStats from './game-stats.js';
+import gameStats from './../../view/view-stats';
 import constants from './../../data/constants.js';
 
 let totalAnswersBonus = 0;

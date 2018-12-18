@@ -40,15 +40,27 @@ class RulesView extends AbstractView {
     return this._element;
   }
 
-  changeNameInput() {}
-
   submitStartGame() {}
 
   getBack() {}
 
   bind() {
-    document.addEventListener(`keyup`, this.changeNameInput);
-    document.querySelector(`.rules__form`).addEventListener(`submit`, this.submitStartGame);
+    let nameInput = document.querySelector(`.rules__input`);
+    let formBtn = document.querySelector(`.rules__button`);
+
+    const changeNameInputHandler = () => {
+      if (nameInput.value.length > 1) {
+        formBtn.removeAttribute(`disabled`);
+      }
+    };
+
+    const submitFormHandler = (evt) => {
+      evt.preventDefault();
+      this.submitStartGame(nameInput.value);
+    };
+
+    document.addEventListener(`keyup`, changeNameInputHandler);
+    document.querySelector(`.rules__form`).addEventListener(`submit`, submitFormHandler);
     document.querySelector(`.back`).addEventListener(`click`, this.getBack);
   }
 }

@@ -30,7 +30,7 @@ export default class GamePresenter {
 
   get gameLevel() {
     if (this.model.gameIsOver() || !this.model.questions[this.model.state.level]) {
-      this.onEndGame(this.model.state);
+      this.onEndGame(this.model.state, this.playerName);
 
       return false;
     }

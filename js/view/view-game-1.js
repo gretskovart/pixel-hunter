@@ -1,6 +1,6 @@
 import constants from './../data/constants.js';
 import AbstractView from './abstract-view.js';
-import gameStats from './../templates-modules/components/game-stats.js';
+import gameStats from './view-stats-panel.js';
 
 class Game1View extends AbstractView {
   constructor(level) {

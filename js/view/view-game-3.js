@@ -1,5 +1,5 @@
 import AbstractView from './abstract-view.js';
-import gameStats from './../templates-modules/components/game-stats.js';
+import gameStats from './view-stats-panel.js';
 
 class Game3View extends AbstractView {
   constructor(level) {

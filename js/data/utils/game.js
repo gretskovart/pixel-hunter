@@ -55,3 +55,5 @@ export const changeLevel = (state) => {
 
   return state;
 };
+
+export const isGameLost = (state) => state.lives === 0 && state.answers.length < constants.ANSWERS_COUNT;

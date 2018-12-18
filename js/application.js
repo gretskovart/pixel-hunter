@@ -35,23 +35,14 @@ export default class Application {
   static showRules() {
     const rules = new ViewRules();
 
-    rules.submitStartGame = () => Application.showGame(gameData);
+    rules.submitStartGame = (name) => Application.showGame(gameData, name);
     rules.getBack = () => Application.showGreeting();
-
-    rules.changeNameInput = () => {
-      let nameInput = document.querySelector(`.rules__input`);
-      let formBtn = document.querySelector(`.rules__button`);
-
-      if (nameInput.value.length > 1) {
-        formBtn.removeAttribute(`disabled`);
-      }
-    };
 
     renderScreen(rules.element);
     rules.bind();
   }
 
-  static showGame(data) {
+  static showGame(data, name) {
     const model = new GameModel();
     const game = new GamePresenter(data, model);
 
@@ -61,8 +52,10 @@ export default class Application {
     };
 
     game.onEndGame = (state) => {
-      Application.showStats(state);
-      game.restartGame();
+      Loader.saveResults(state.answers, state.lives, name)
+      .then(() => Application.showStats(name))
+      .then(() => game.restartGame())
+      .catch(Application.showModalError);
     };
 
     renderScreen(game.root);
@@ -70,12 +63,16 @@ export default class Application {
     game.content.bind();
   }
 
-  static showStats() {
-    const stats = new ViewStats();
+  static showStats(name) {
+    Loader.loadResults(name)
+    .then((data) => {
+      const stats = new ViewStats(data);
 
-    stats.getBack = () => Application.showGreeting();
-    renderScreen(stats.render());
-    stats.bind();
+      stats.getBack = () => Application.showGreeting();
+      renderScreen(stats.render());
+      stats.bind();
+    })
+    .catch(Application.showModalError);
   }
 
   static showModalError(error) {

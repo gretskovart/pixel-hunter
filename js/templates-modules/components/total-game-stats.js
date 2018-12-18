@@ -1,6 +1,7 @@
 import {gameInfo} from './../../data/game-info.js';
-import gameStats from './../../view/view-stats';
+import gameStats from './../../view/view-stats-panel.js';
 import constants from './../../data/constants.js';
+import {isGameLost} from './../../data/utils/game.js';
 
 let totalAnswersBonus = 0;
 let totalLifeBonus = 0;
@@ -8,15 +9,13 @@ let totalSlowBonus = 0;
 let totalFastBonus = 0;
 let total = 0;
 
-let statsTemplate;
-
-const failTemplate = () => {
+const failTemplate = (state, number) => {
   return `
     <tr>
-      <td class="result__number">2.</td>
+      <td class="result__number">${number}</td>
       <td>
         <ul class="stats">
-          ${gameStats()}
+          ${gameStats(state)}
         </ul>
       </td>
       <td class="result__total"></td>
@@ -26,7 +25,7 @@ const failTemplate = () => {
 
 const getCountsOfAnswerByType = (type) => gameInfo.answers.filter((answer) => answer[type] === true).length;
 
-const successTemplate = () => {
+const successTemplate = (state, number) => {
   let templateArr = [];
 
   let totalFast = getCountsOfAnswerByType(`isQuick`);
@@ -42,9 +41,9 @@ const successTemplate = () => {
   templateArr.push(`
     <tr>
       <td class="result__number">1.</td>
-      <td colspan="2">
+      <td colspan="${number}">
         <ul class="stats">
-          ${gameStats()}
+          ${gameStats(state)}
         </ul>
       </td>
       <td class="result__points">× ${constants.BONUS_FOR_CORRECT_ANSWER}</td>
@@ -52,7 +51,7 @@ const successTemplate = () => {
     </tr>`
   );
 
-  if (checkTimes(`isQuick`)) {
+  if (state.type === `fast`) {
 
     templateArr.push(`
       <tr>
@@ -77,7 +76,7 @@ const successTemplate = () => {
     );
   }
 
-  if (checkTimes(`isSlow`)) {
+  if (state.type === `slow`) {
     templateArr.push(`
       <tr>
         <td></td>
@@ -98,22 +97,20 @@ const successTemplate = () => {
   return templateArr.join(``);
 };
 
-const checkTimes = (prop) => {
-  let count = gameInfo.answers.some((answer) => {
-    return answer[prop] === true;
+export default (states) => {
+  let panelStatsArray = [];
+
+  states.forEach((state, index) => {
+    let number = index + 1;
+
+    if (isGameLost(state) === false) {
+      panelStatsArray.push(failTemplate(state, number));
+    } else if (isGameLost(state) === true) {
+      panelStatsArray.push(successTemplate(state, number));
+    }
+
+    return panelStatsArray;
   });
 
-  return !!count;
+  return panelStatsArray.join(``);
 };
-
-let getTotalStats = () => {
-  if (gameInfo.answers.length !== constants.ANSWERS_COUNT) {
-    statsTemplate = failTemplate();
-  } else {
-    statsTemplate = successTemplate();
-  }
-
-  return statsTemplate;
-};
-
-export default getTotalStats;

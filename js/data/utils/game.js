@@ -1,19 +1,31 @@
 import constants from './../constants.js';
 
 export const saveAnswer = (state, isCorrect) => {
-  let answerInfo = [];
   const time = state.time;
 
-  if (isCorrect === true) {
-    answerInfo.isQuick = (time > constants.QUICK_RESPONSE_TIMELIMIT) ? true : null;
-    answerInfo.isSlow = (time < constants.SLOW_RESPONSE_TIMELIMIT) ? true : null;
-    answerInfo.isNormal = (time <= constants.QUICK_RESPONSE_TIMELIMIT && time >= constants.SLOW_RESPONSE_TIMELIMIT) ? true : null;
-  }
-
-  answerInfo.isCorrect = isCorrect;
-  state.answers.push(answerInfo);
+  state.answers.push(getStatus(time, isCorrect));
 
   return state;
+};
+
+const getStatus = (time, isCorrect) => {
+  let status;
+
+  if (isCorrect === false) {
+    status = `wrong`;
+
+  } else if (time > constants.QUICK_RESPONSE_TIMELIMIT) {
+    status = `fast`;
+
+  } else if (time < constants.SLOW_RESPONSE_TIMELIMIT) {
+    status = `slow`;
+
+  } else if (time <= constants.QUICK_RESPONSE_TIMELIMIT && time >= constants.SLOW_RESPONSE_TIMELIMIT) {
+    status = `correct`;
+
+  }
+
+  return status;
 };
 
 export const updateLives = (state, isCorrect) => {

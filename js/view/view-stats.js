@@ -8,7 +8,6 @@ class StatsView extends AbstractView {
     super();
     this.results = results;
     this.title = isGameLost(this.results.slice(-1)[0]);
-    console.log(this.results);
   }
 
   get template() {

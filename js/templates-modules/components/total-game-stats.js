@@ -23,25 +23,25 @@ const failTemplate = (state, number) => {
     </tr>`;
 };
 
-const getCountsOfAnswerByType = (type) => gameInfo.answers.filter((answer) => answer[type] === true).length;
+const getCountsOfAnswerByType = (state, type) => state.answers.filter((answer) => answer === type).length;
 
 const successTemplate = (state, number) => {
   let templateArr = [];
 
-  let totalFast = getCountsOfAnswerByType(`isQuick`);
-  let totalSlow = getCountsOfAnswerByType(`isSlow`);
-  let totalAnswers = getCountsOfAnswerByType(`isCorrect`);
+  let totalFast = getCountsOfAnswerByType(state, `fast`);
+  let totalSlow = getCountsOfAnswerByType(state, `slow`);
+  let totalAnswers = state.answers.length - getCountsOfAnswerByType(state, `wrong`);
 
   totalFastBonus = totalFast * constants.BONUS_FOR_TIME;
   totalSlowBonus = totalSlow * constants.BONUS_FOR_TIME;
   totalAnswersBonus = totalAnswers * constants.BONUS_FOR_CORRECT_ANSWER;
-  totalLifeBonus = gameInfo.lives * constants.BONUS_FOR_PER_LIFE;
+  totalLifeBonus = state.lives * constants.BONUS_FOR_PER_LIFE;
   total = totalFastBonus + totalAnswersBonus + totalLifeBonus - totalSlowBonus;
 
   templateArr.push(`
     <tr>
-      <td class="result__number">1.</td>
-      <td colspan="${number}">
+      <td class="result__number">${number}.</td>
+      <td colspan="2">
         <ul class="stats">
           ${gameStats(state.answers)}
         </ul>
@@ -51,7 +51,7 @@ const successTemplate = (state, number) => {
     </tr>`
   );
 
-  if (state.type === `fast`) {
+  if (totalFast > 0) {
 
     templateArr.push(`
       <tr>
@@ -64,7 +64,7 @@ const successTemplate = (state, number) => {
     );
   }
 
-  if (gameInfo.lives > 0) {
+  if (state.lives > 0) {
     templateArr.push(`
       <tr>
         <td></td>
@@ -76,7 +76,7 @@ const successTemplate = (state, number) => {
     );
   }
 
-  if (state.type === `slow`) {
+  if (totalSlow > 0) {
     templateArr.push(`
       <tr>
         <td></td>

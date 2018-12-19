@@ -39,7 +39,6 @@ export default class GameModel {
   }
 
   onAnswer(answer) {
-    debugger;
     this._state = game.saveAnswer(this._state, answer);
     this._state = game.updateLives(this._state, answer);
     this._state = game.changeLevel(this._state, this._state.level + 1);

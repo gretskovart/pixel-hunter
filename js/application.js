@@ -43,11 +43,10 @@ export default class Application {
   }
 
   static showGame(data, name) {
-    const model = new GameModel();
-    const game = new GamePresenter(data, model);
+    const model = new GameModel(data);
+    const game = new GamePresenter(model);
 
     game.getBack = () => {
-      game.stopTimer();
       Application.showGreeting();
     };
 

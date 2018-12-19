@@ -3,9 +3,11 @@ import constants from './../constants.js';
 export const saveAnswer = (state, isCorrect) => {
   const time = state.time;
 
-  state.answers.push(getStatus(time, isCorrect));
+  const answer = getStatus(time, isCorrect);
 
-  return state;
+  return Object.assign({}, state, {
+    answers: [...state.answers, answer]
+  });
 };
 
 const getStatus = (time, isCorrect) => {
@@ -42,10 +44,9 @@ export const updateLives = (state, isCorrect) => {
 
   } else if (isCorrect === false && currentCountsOfLives > 0) {
     currentCountsOfLives -= 1;
-    state.lives = currentCountsOfLives;
   }
 
-  return state;
+  return Object.assign({}, state, {lives: currentCountsOfLives});
 };
 
 export const changeLevel = (state) => {
@@ -62,10 +63,9 @@ export const changeLevel = (state) => {
 
   } else {
     currentLevel += 1;
-    state.level = currentLevel;
   }
 
-  return state;
+  return Object.assign({}, state, {level: currentLevel});
 };
 
 export const isGameLost = (state) => state.lives === 0 && state.answers.length < constants.ANSWERS_COUNT;

@@ -3,9 +3,10 @@ import AbstractView from './abstract-view.js';
 import gameStats from './view-stats-panel.js';
 
 class Game1View extends AbstractView {
-  constructor(level) {
+  constructor(level, answers) {
     super();
     this.level = level;
+    this.answers = answers;
   }
 
   get template() {
@@ -28,7 +29,7 @@ class Game1View extends AbstractView {
           `).join(``)}
         </form>
           <ul class="stats">
-            ${gameStats()}
+            ${gameStats(this.answers)}
           </ul>
       </section>
     `;

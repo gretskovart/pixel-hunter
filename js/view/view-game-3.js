@@ -2,10 +2,10 @@ import AbstractView from './abstract-view.js';
 import gameStats from './view-stats-panel.js';
 
 class Game3View extends AbstractView {
-  constructor(level) {
+  constructor(level, answers) {
     super();
     this.level = level;
-
+    this.answers = answers;
     this.gameType = this.level.question === `Найдите рисунок среди изображений` ? `paint` : `photo`;
   }
 
@@ -21,7 +21,7 @@ class Game3View extends AbstractView {
         `)}
         </form>
           <ul class="stats">
-            ${gameStats()}
+            ${gameStats(this.answers)}
           </ul>
       </section>
     `;

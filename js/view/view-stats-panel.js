@@ -1,11 +1,7 @@
-import {gameInfo} from './../data/game-info.js';
-
-const getStatsPanel = (state = gameInfo) => {
+const getStatsPanel = (answers) => {
   let statsPanel = [];
 
   for (let index = 0; index < 10; index++) {
-    const answers = state.answers;
-
     if (answers.length === 0 || answers[index] === undefined) {
       statsPanel.push(`
         <li class="stats__result stats__result--unknown"></li>`);

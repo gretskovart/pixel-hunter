@@ -15,7 +15,7 @@ const failTemplate = (state, number) => {
       <td class="result__number">${number}</td>
       <td>
         <ul class="stats">
-          ${gameStats(state)}
+          ${gameStats(state.answers)}
         </ul>
       </td>
       <td class="result__total"></td>
@@ -43,7 +43,7 @@ const successTemplate = (state, number) => {
       <td class="result__number">1.</td>
       <td colspan="${number}">
         <ul class="stats">
-          ${gameStats(state)}
+          ${gameStats(state.answers)}
         </ul>
       </td>
       <td class="result__points">× ${constants.BONUS_FOR_CORRECT_ANSWER}</td>

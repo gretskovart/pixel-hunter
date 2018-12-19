@@ -5,8 +5,9 @@ import * as game from './../data/utils/game.js';
 const GAME_STATUS_INITIAL = gameInfo;
 
 export default class GameModel {
-  constructor() {
+  constructor(data) {
     this.restartGame();
+    this.data = data;
   }
 
   get state() {
@@ -14,7 +15,7 @@ export default class GameModel {
   }
 
   get currentLevel() {
-    return gameInfo.level;
+    return this.data[this._state.level];
   }
 
   get currentLives() {
@@ -38,8 +39,9 @@ export default class GameModel {
   }
 
   onAnswer(answer) {
-    game.saveAnswer(this._state, answer);
-    game.updateLives(this._state, answer);
-    game.changeLevel(this._state, this._state.level + 1);
+    debugger;
+    this._state = game.saveAnswer(this._state, answer);
+    this._state = game.updateLives(this._state, answer);
+    this._state = game.changeLevel(this._state, this._state.level + 1);
   }
 }

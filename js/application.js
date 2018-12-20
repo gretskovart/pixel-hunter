@@ -5,7 +5,7 @@ import ViewStats from './view/view-stats.js';
 import ViewModalError from './view/view-modal-error.js';
 import GameModel from './data/game-model.js';
 import GamePresenter from './data/game-presenter.js';
-import {renderScreen} from './render-element.js';
+import {renderScreen} from './data/utils/render-element.js';
 import Loader from './data/loader.js';
 
 let gameData;
@@ -46,9 +46,7 @@ export default class Application {
     const model = new GameModel(data);
     const game = new GamePresenter(model);
 
-    game.getBack = () => {
-      Application.showGreeting();
-    };
+    game.getBack = () => Application.showGreeting();
 
     game.onEndGame = (state) => {
       Loader.saveResults(state.answers, state.lives, name)

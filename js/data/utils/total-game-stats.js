@@ -1,7 +1,7 @@
-import {gameInfo} from './../../data/game-info.js';
-import gameStats from './../../view/view-stats-panel.js';
-import constants from './../../data/constants.js';
-import {isGameLost} from './../../data/utils/game.js';
+import {gameInfo} from '../game-info.js';
+import gameStats from '../../view/view-stats-panel.js';
+import constants from '../constants.js';
+import {isGameLost} from './game.js';
 
 let totalAnswersBonus = 0;
 let totalLifeBonus = 0;
@@ -47,7 +47,7 @@ const successTemplate = (state, number) => {
         </ul>
       </td>
       <td class="result__points">× ${constants.BONUS_FOR_CORRECT_ANSWER}</td>
-      <td class="result__total">${totalAnswersBonus}</td>
+      <td class="result__total">${isGameLost(state) ? `Fail` : totalAnswersBonus}</td>
     </tr>`
   );
 
@@ -105,8 +105,10 @@ export default (states) => {
 
     if (isGameLost(state) === false) {
       panelStatsArray.push(failTemplate(state, number));
+
     } else if (isGameLost(state) === true) {
       panelStatsArray.push(successTemplate(state, number));
+
     }
 
     return panelStatsArray;

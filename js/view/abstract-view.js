@@ -1,4 +1,4 @@
-import {createElement} from './../render-element.js';
+import {createElement} from '../data/utils/render-element.js';
 
 class AbstractView {
   constructor() {

@@ -1,4 +1,5 @@
-import AbstractView from "./abstract-view";
+import AbstractView from "./abstract-view.js";
+import constants from './../data/constants.js';
 
 class HeaderView extends AbstractView {
   constructor(state) {
@@ -23,12 +24,11 @@ class HeaderView extends AbstractView {
   }
 
   _getHeartsTemplate() {
-    const LIVES_COUNT_LIMIT = 3;
     const gameHeart = `<img src="img/heart__full.svg" class="game__heart" alt="Life" width="31" height="27">`;
     const gameHeartEmpty = `<img src="img/heart__empty.svg" class="game__heart" alt=" Missed Life" width="31" height="27">`;
 
     let countOfLives = this.state.lives;
-    let countOfEmptyLives = LIVES_COUNT_LIMIT - countOfLives;
+    let countOfEmptyLives = constants.COUNT_OF_LIVES - countOfLives;
     let heartsTemplate = ``;
 
     while (countOfEmptyLives > 0) {

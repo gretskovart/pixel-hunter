@@ -88,9 +88,18 @@ export default class GamePresenter {
       this.model.tic();
 
       if (this.model.state.time <= 0) {
-        this._onAnswer({isCorrect: false});
+        this._onAnswer(false);
+
       } else {
         this.updateHeader();
+
+        if (this.model.state.time <= constants.MIN_TIME) {
+          const timer = document.querySelector(`.game__timer`);
+
+          setTimeout(() => {
+            timer.style.display = (timer.style.display === `none` ? `` : `none`);
+          }, constants.TIME_TO_FLASH);
+        }
       }
     }, constants.ONE_SEC);
   }

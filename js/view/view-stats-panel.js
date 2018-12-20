@@ -1,7 +1,9 @@
+import constants from './../data/constants.js';
+
 const getStatsPanel = (answers) => {
   let statsPanel = [];
 
-  for (let index = 0; index < 10; index++) {
+  for (let index = 0; index < constants.ANSWERS_COUNT; index++) {
     if (answers.length === 0 || answers[index] === undefined) {
       statsPanel.push(`
         <li class="stats__result stats__result--unknown"></li>`);

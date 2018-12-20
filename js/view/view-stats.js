@@ -1,7 +1,7 @@
 import AbstractView from './abstract-view.js';
 import constants from './../data/constants.js';
 import {isGameLost} from './../data/utils/game.js';
-import getTotalStats from './../templates-modules/components/total-game-stats.js';
+import getTotalStats from '../data/utils/total-game-stats.js';
 
 class StatsView extends AbstractView {
   constructor(results) {

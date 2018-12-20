@@ -39,7 +39,7 @@ export const updateLives = (state, isCorrect) => {
   } else if (currentCountsOfLives < 0) {
     throw new Error(`Количество жизней не может быть отрицательным`);
 
-  } else if (currentCountsOfLives > 3) {
+  } else if (currentCountsOfLives > constants.COUNT_OF_LIVES) {
     throw new Error(`Количество жизней не может быть больше 3`);
 
   } else if (isCorrect === false && currentCountsOfLives > 0) {
@@ -58,7 +58,7 @@ export const changeLevel = (state) => {
   } else if (currentLevel < 0) {
     throw new Error(`Уровень должен быть не меньше 0`);
 
-  } else if (currentLevel >= 10) {
+  } else if (currentLevel >= constants.ANSWERS_COUNT) {
     throw new Error(`Уровень должен быть не больше 10`);
 
   } else {
@@ -68,4 +68,24 @@ export const changeLevel = (state) => {
   return Object.assign({}, state, {level: currentLevel});
 };
 
-export const isGameLost = (state) => state.lives === 0 && state.answers.length < constants.ANSWERS_COUNT;
+export const changeTime = (state) => {
+  let time = state.time;
+
+  if (typeof time !== `number`) {
+    throw new Error(`Время должно быть числом`);
+
+  } else if (time < 0) {
+    throw new Error(`Время не может быть отрицательным`);
+
+  } else if (time > constants.TIME_LIMIT) {
+    throw new Error(`Время должно быть не больше переменной TIME_LIMIT`);
+
+  } else if (!state.time) {
+    return state;
+
+  }
+
+  return Object.assign({}, state, {time: time - 1});
+};
+
+export const isGameLost = (state) => state.answers.filter((answer) => answer === `wrong`).length > constants.COUNT_OF_LIVES;

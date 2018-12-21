@@ -1,4 +1,4 @@
-import {gameInfo} from './game-info.js';
+import gameInfo from './game-info.js';
 import * as game from './../data/utils/game.js';
 
 const GAME_STATUS_INITIAL = gameInfo;

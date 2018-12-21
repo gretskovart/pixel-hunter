@@ -18,8 +18,7 @@ describe(`Смена игровых уровней`, () => {
   });
 
   it(`Максимальный уровень - 10`, () => {
-    const state = gameInfo;
-    state.level = 10;
+    const state = Object.assign({}, gameInfo, {level: 10});
 
     assert.throws(() => changeLevel(state), Error, `Уровень должен быть не больше 10`);
   });

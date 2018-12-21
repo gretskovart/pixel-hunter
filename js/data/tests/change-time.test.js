@@ -1,6 +1,6 @@
 import {assert} from 'chai';
 import {changeTime} from './../utils/game.js';
-import {gameInfo} from './../game-info.js';
+import gameInfo from './../game-info.js';
 
 describe(`Изменение времени`, () => {
   it(`Время - это число`, () => {

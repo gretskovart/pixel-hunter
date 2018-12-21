@@ -1,6 +1,6 @@
 import {assert} from 'chai';
 import {updateLives} from './../utils/game.js';
-import {gameInfo} from './../game-info.js';
+import gameInfo from './../game-info.js';
 
 describe(`Потеря количества жизней`, () => {
   it(`Количество жизней - это число`, () => {

@@ -1,4 +1,4 @@
-import {gameInfo} from '../game-info.js';
+import gameInfo from '../game-info.js';
 import gameStats from '../../view/view-stats-panel.js';
 import constants from '../constants.js';
 import {isGameLost} from './game.js';

@@ -33,7 +33,7 @@ export default class GameModel {
     this._state = Object.assign({}, this._state, {time: GAME_STATUS_INITIAL.time});
   }
 
-  tic() {
+  tick() {
     this._state = game.changeTime(this._state);
   }
 

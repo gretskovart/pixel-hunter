@@ -2,7 +2,6 @@ import constants from './../constants.js';
 
 export const saveAnswer = (state, isCorrect) => {
   const time = state.time;
-
   const answer = getStatus(time, isCorrect);
 
   return Object.assign({}, state, {
@@ -24,7 +23,6 @@ const getStatus = (time, isCorrect) => {
 
   } else if (time <= constants.QUICK_RESPONSE_TIMELIMIT && time >= constants.SLOW_RESPONSE_TIMELIMIT) {
     status = `correct`;
-
   }
 
   return status;
@@ -69,7 +67,7 @@ export const changeLevel = (state) => {
 };
 
 export const changeTime = (state) => {
-  let time = state.time;
+  const time = state.time;
 
   if (typeof time !== `number`) {
     throw new Error(`Время должно быть числом`);
@@ -82,7 +80,6 @@ export const changeTime = (state) => {
 
   } else if (!state.time) {
     return state;
-
   }
 
   return Object.assign({}, state, {time: time - 1});

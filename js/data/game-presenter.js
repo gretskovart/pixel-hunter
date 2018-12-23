@@ -19,7 +19,7 @@ export default class GamePresenter {
     this.root.appendChild(this._header.render());
     this.root.appendChild(this.content.render());
 
-    this.tic = () => this.model.tic();
+    this.tick = () => this.model.tick();
 
     this._interval = null;
     this.game = null;
@@ -85,7 +85,7 @@ export default class GamePresenter {
 
   startTimer() {
     this._interval = setInterval(() => {
-      this.model.tic();
+      this.model.tick();
 
       if (this.model.state.time <= 0) {
         this._onAnswer(false);
@@ -118,8 +118,8 @@ export default class GamePresenter {
   }
 
   _onAnswer(answer) {
-    this.stopTimer();
     this.model.onAnswer(answer);
+    this.stopTimer();
     this.updateHeader();
     this.updateGame();
   }

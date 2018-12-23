@@ -19,18 +19,17 @@ const failTemplate = (state, number) => {
         </ul>
       </td>
       <td class="result__total"></td>
-      <td class="result__total  result__total--final">fail</td>
+      <td class="result__total  result__total--final">Fail</td>
     </tr>`;
 };
 
 const getCountsOfAnswerByType = (state, type) => state.answers.filter((answer) => answer === type).length;
 
 const successTemplate = (state, number) => {
-  let templateArr = [];
-
-  let totalFast = getCountsOfAnswerByType(state, `fast`);
-  let totalSlow = getCountsOfAnswerByType(state, `slow`);
-  let totalAnswers = state.answers.length - getCountsOfAnswerByType(state, `wrong`);
+  const templateArr = [];
+  const totalFast = getCountsOfAnswerByType(state, `fast`);
+  const totalSlow = getCountsOfAnswerByType(state, `slow`);
+  const totalAnswers = state.answers.length - getCountsOfAnswerByType(state, `wrong`);
 
   totalFastBonus = totalFast * constants.BONUS_FOR_TIME;
   totalSlowBonus = totalSlow * constants.BONUS_FOR_TIME;
@@ -47,12 +46,11 @@ const successTemplate = (state, number) => {
         </ul>
       </td>
       <td class="result__points">× ${constants.BONUS_FOR_CORRECT_ANSWER}</td>
-      <td class="result__total">${isGameLost(state) ? `Fail` : totalAnswersBonus}</td>
+      <td class="result__total">${totalAnswersBonus}</td>
     </tr>`
   );
 
   if (totalFast > 0) {
-
     templateArr.push(`
       <tr>
         <td></td>
@@ -98,17 +96,16 @@ const successTemplate = (state, number) => {
 };
 
 export default (states) => {
-  let panelStatsArray = [];
+  const panelStatsArray = [];
 
-  states.forEach((state, index) => {
-    let number = index + 1;
+  states.reverse().forEach((state, index) => {
+    const number = index + 1;
 
-    if (isGameLost(state) === false) {
+    if (isGameLost(state) === true) {
       panelStatsArray.push(failTemplate(state, number));
 
-    } else if (isGameLost(state) === true) {
+    } else if (isGameLost(state) === false) {
       panelStatsArray.push(successTemplate(state, number));
-
     }
 
     return panelStatsArray;

@@ -45,8 +45,8 @@ class RulesView extends AbstractView {
   getBack() {}
 
   bind() {
-    let nameInput = document.querySelector(`.rules__input`);
-    let formBtn = document.querySelector(`.rules__button`);
+    const nameInput = document.querySelector(`.rules__input`);
+    const formBtn = document.querySelector(`.rules__button`);
 
     const changeNameInputHandler = () => {
       if (nameInput.value.length > 1) {

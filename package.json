@@ -2,12 +2,15 @@
   "name": "PixelHunter",
   "version": "5.0.0",
   "private": true,
+  "homepage": "https://gretskovart.github.io/pixel-hunter",
   "description": "Личный проект «Пиксель хантер» от HTML Academy",
   "scripts": {
     "eslint": "eslint ./gulpfile.js js/**/*.js",
     "stylelint": "stylelint 'sass/**/*.scss' --syntax scss",
     "build": "gulp build",
     "start": "gulp serve",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "npm run eslint && npm run stylelint && gulp test"
   },
   "devDependencies": {
@@ -35,5 +38,8 @@
   },
   "engines": {
     "node": "10"
+  },
+  "dependencies": {
+    "gh-pages": "^2.0.1"
   }
 }

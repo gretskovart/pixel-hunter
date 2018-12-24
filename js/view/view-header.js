@@ -57,7 +57,11 @@ class HeaderView extends AbstractView {
   getBack() {}
 
   bind() {
-    document.querySelector(`.back`).addEventListener(`click`, () => this.getBack());
+    const backBtn = document.querySelector(`.back`);
+
+    if (backBtn) {
+      document.querySelector(`.back`).addEventListener(`click`, () => this.getBack());
+    }
   }
 }
 

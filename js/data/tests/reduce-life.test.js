@@ -1,24 +1,27 @@
 import {assert} from 'chai';
-import reduceLife from './../utils/reduce-life.js';
+import {updateLives} from './../utils/game.js';
 import gameInfo from './../game-info.js';
 
 describe(`Потеря количества жизней`, () => {
   it(`Количество жизней - это число`, () => {
-    const initialCountOfLives = gameInfo.lives;
-    const currentCountOfLives = reduceLife(initialCountOfLives);
+    const state = gameInfo;
 
-    assert.equal(currentCountOfLives, 2);
+    assert.equal(updateLives(state, false).lives, 2);
   });
 
   it(`Количество жизней не может быть отрицательным`, () => {
-    const currentCountOfLives = -1;
+    const state = Object.assign({}, gameInfo, {
+      lives: -1
+    });
 
-    assert.throws(() => reduceLife(currentCountOfLives), Error, `Количество жизней не может быть отрицательным`);
+    assert.throws(() => updateLives(state), Error, `Количество жизней не может быть отрицательным`);
   });
 
   it(`Максимальный количество жизней - 3`, () => {
-    const currentCountOfLives = 4;
+    const state = Object.assign({}, gameInfo, {
+      lives: 4
+    });
 
-    assert.throws(() => reduceLife(currentCountOfLives), Error, `Количество жизней не может быть больше 3`);
+    assert.throws(() => updateLives(state), Error, `Количество жизней не может быть больше 3`);
   });
 });

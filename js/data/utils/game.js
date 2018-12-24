@@ -1,94 +1,88 @@
-import info from './../game-info.js';
-import changeLevel from './change-level.js';
-// import changeTime from './change-time.js';
-// import reduceLife from './reduce-life.js';
-import gameScore from './../../templates-modules/module-stats.js';
-import images from './../game-images.js';
+import constants from './../constants.js';
 
-const prepArrGame1 = [];
+export const saveAnswer = (state, isCorrect) => {
+  const time = state.time;
+  const answer = getStatus(time, isCorrect);
 
-const GAME_2_QUESTIONS_COUNT = 2;
-const NORMAL_VELOCITY = 11;
-const ANSWERS_COUNT = 10;
+  return Object.assign({}, state, {
+    answers: [...state.answers, answer]
+  });
+};
 
-const selectAnswers = (evt) => {
-  let target = evt.target;
-  let isCorrect;
+const getStatus = (time, isCorrect) => {
+  let status;
 
-  const value = target.value;
+  if (isCorrect === false) {
+    status = `wrong`;
 
-  if (target.tagName === `INPUT`) {
-    let imgUrl = target.parentNode.parentNode.querySelector(`img`).src;
-    let existingType = getSelectedImgType(imgUrl);
-    isCorrect = (existingType === value) ? true : false;
+  } else if (time > constants.QUICK_RESPONSE_TIMELIMIT) {
+    status = `fast`;
 
-  } else if (target.tagName === `IMG` && target.parentNode.parentNode.classList.contains(`game__content--triple`)) {
-    let imgUrl = target.src;
-    let existingType = getSelectedImgType(imgUrl);
+  } else if (time < constants.SLOW_RESPONSE_TIMELIMIT) {
+    status = `slow`;
 
-    isCorrect = (existingType === `paint`) ? true : false;
+  } else if (time <= constants.QUICK_RESPONSE_TIMELIMIT && time >= constants.SLOW_RESPONSE_TIMELIMIT) {
+    status = `correct`;
   }
 
-  if (target.parentNode.parentNode.parentNode.childElementCount === GAME_2_QUESTIONS_COUNT && isCorrect !== `undefined`) {
-    prepArrGame1.push(isCorrect);
+  return status;
+};
 
-    if (prepArrGame1.length === GAME_2_QUESTIONS_COUNT) {
-      let fullAnswer = prepArrGame1.reduce((a, b) => a * b);
+export const updateLives = (state, isCorrect) => {
+  let currentCountsOfLives = state.lives;
 
-      prepArrGame1.splice(0, prepArrGame1.length);
-      saveAnswers(!!fullAnswer, NORMAL_VELOCITY);
-    }
+  if (typeof currentCountsOfLives !== `number`) {
+    throw new Error(`Количество жизней не является числом`);
+
+  } else if (currentCountsOfLives < 0) {
+    throw new Error(`Количество жизней не может быть отрицательным`);
+
+  } else if (currentCountsOfLives > constants.COUNT_OF_LIVES) {
+    throw new Error(`Количество жизней не может быть больше 3`);
+
+  } else if (isCorrect === false && currentCountsOfLives > 0) {
+    currentCountsOfLives -= 1;
+  }
+
+  return Object.assign({}, state, {lives: currentCountsOfLives});
+};
+
+export const changeLevel = (state) => {
+  let currentLevel = state.level;
+
+  if (typeof currentLevel !== `number`) {
+    throw new Error(`Уровень не является числом`);
+
+  } else if (currentLevel < 0) {
+    throw new Error(`Уровень должен быть не меньше 0`);
+
+  } else if (currentLevel >= constants.ANSWERS_COUNT) {
+    throw new Error(`Уровень должен быть не больше 10`);
 
   } else {
-    saveAnswers(isCorrect, NORMAL_VELOCITY);
+    currentLevel += 1;
   }
+
+  return Object.assign({}, state, {level: currentLevel});
 };
 
-const getSelectedImgType = (url) => {
-  let existingType;
+export const changeTime = (state) => {
+  const time = state.time;
 
-  for (let [key, val] of images.entries()) {
-    for (let valImg of val.values()) {
-      if (valImg === url) {
-        existingType = key;
+  if (typeof time !== `number`) {
+    throw new Error(`Время должно быть числом`);
 
-        return existingType;
-      }
-    }
+  } else if (time < 0) {
+    throw new Error(`Время не может быть отрицательным`);
+
+  } else if (time > constants.TIME_LIMIT) {
+    throw new Error(`Время должно быть не больше переменной TIME_LIMIT`);
+
+  } else if (!state.time) {
+    return state;
   }
 
-  return existingType;
+  return Object.assign({}, state, {time: time - 1});
 };
 
-const saveAnswers = (isCorrect, time) => {
-  const QUICK_RESPONSE_TIMELIMIT = 10;
-  const SLOW_RESPONSE_TIMELIMIT = 20;
-
-  let answer = {};
-
-  if (isCorrect === true) {
-    answer.isQuick = (time < QUICK_RESPONSE_TIMELIMIT) ? true : null;
-    answer.isSlow = (time > SLOW_RESPONSE_TIMELIMIT) ? true : null;
-    answer.isNormal = (time >= QUICK_RESPONSE_TIMELIMIT && time <= SLOW_RESPONSE_TIMELIMIT) ? true : null;
-
-  } else if (isCorrect === false) {
-    if (info.lives === 0) {
-      return gameScore();
-
-    }
-
-    info.lives--;
-  }
-
-  answer.isCorrect = isCorrect;
-
-  info.answers.push(answer);
-
-  if (info.level < ANSWERS_COUNT) {
-    changeLevel(info.level);
-  } else {
-    gameScore();
-  }
-};
-
-export default selectAnswers;
+export const isGameLost = (state) => state.answers.filter((answer) => answer === `wrong`).length > constants.COUNT_OF_LIVES;

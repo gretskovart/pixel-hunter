@@ -1,6 +1,6 @@
-export default {
-  level: 1,
+export default Object.freeze({
+  level: 0,
   lives: 3,
-  time: 0,
+  time: 30,
   answers: []
-};
+});

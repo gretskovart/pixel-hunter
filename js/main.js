@@ -1,3 +1,3 @@
-import moduleMain from './templates-modules/module-main.js';
+import Application from './application.js';
 
-moduleMain();
+Application.showWelcome();

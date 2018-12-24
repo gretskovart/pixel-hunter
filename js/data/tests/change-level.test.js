@@ -1,24 +1,25 @@
 import {assert} from 'chai';
-import changeLevel from './../utils/change-level.js';
+import {changeLevel} from './../utils/game.js';
 import gameInfo from './../game-info.js';
 
 describe(`Смена игровых уровней`, () => {
   it(`Уровень это число`, () => {
-    const currentLevel = gameInfo.level;
-    const nextLevel = changeLevel(currentLevel);
+    const state = gameInfo;
 
-    assert.equal(nextLevel, 2);
+    assert.equal(changeLevel(state).level, 1);
   });
 
-  it(`Уровень не может быть меньше 1`, () => {
-    const currentLevel = -1;
+  it(`Уровень не может быть меньше 0`, () => {
+    const state = Object.assign({}, gameInfo, {
+      level: -1
+    });
 
-    assert.throws(() => changeLevel(currentLevel), Error, `Уровень должен быть не меньше 1`);
+    assert.throws(() => changeLevel(state), Error, `Уровень должен быть не меньше 0`);
   });
 
   it(`Максимальный уровень - 10`, () => {
-    const currentLevel = 10;
+    const state = Object.assign({}, gameInfo, {level: 10});
 
-    assert.throws(() => changeLevel(currentLevel), Error, `Уровень должен быть не больше 10`);
+    assert.throws(() => changeLevel(state), Error, `Уровень должен быть не больше 10`);
   });
 });
